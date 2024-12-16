@@ -5,6 +5,9 @@ import Login from './Login'
 import Register from './Register'
 import Profile from './Profile'
 import Network from './Network'
+import Admin from './Admin/Admin'
+import Sheet from './Admin/Sheet'
+import Addusers from './Admin/Addusers'
 
 export default function App() {
   return (
@@ -15,6 +18,9 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/admin/sheet" element={<Sheet />} />
+        <Route path="/admin/addusers" element={<Addusers />} />
       </Routes>
     </BrowserRouter>
   )
