@@ -11,7 +11,7 @@ export default function Sheet() {
     if (!token) {
       navigate('/admin');
     } else {
-      fetch('http://localhost:5000/admin/sheet', {
+      fetch(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`
