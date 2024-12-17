@@ -6,6 +6,9 @@ export default function Addusers() {
     const [referenceId, setReferenceId] = useState('');
     const [place, setPlace] = useState('');
     const [mobile, setMobile] = useState('');
+    const [buttonText, setButtonText] = useState('Add Customer');
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,6 +28,9 @@ export default function Addusers() {
             mobile,
         };
 
+        setButtonText('Adding...');
+        setButtonDisabled(true);
+
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/adduser`, {
                 method: 'POST',
@@ -35,14 +41,29 @@ export default function Addusers() {
             });
 
             const data = await response.json();
+
             if (response.ok) {
-                alert('Customer added successfully');
+                setButtonText('Added');
+                setErrorMessage('');
+                setTimeout(() => {
+                    setButtonText('Add Customer');
+                    setName('');
+                    setReferenceId('');
+                    setPlace('');
+                    setMobile('');
+                }, 1000);
             } else {
-                alert(data.message || 'Error adding customer');
+                setButtonText('Error');
+                setErrorMessage(data.message || 'Error adding customer');
+                setTimeout(() => setButtonText('Add Customer'), 1000);
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Something went wrong!');
+            setButtonText('Error');
+            setErrorMessage('Something went wrong!');
+            setTimeout(() => setButtonText('Add Customer'), 1000);
+        } finally {
+            setButtonDisabled(false);
         }
     };
 
@@ -106,13 +127,19 @@ export default function Addusers() {
                     <button
                         type="submit"
                         className="w-full px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+                        disabled={buttonDisabled}
                     >
-                        Add Customer
+                        {buttonText}
                     </button>
+                    {errorMessage && (
+                        <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
+                    )}
                 </form>
             </div>
             <Link to={'/admin/sheet'}>
-                <button className='w-52 px-4 py-2 mt-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400'>Data Sheet</button>
+                <button className="w-52 px-4 py-2 mt-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">
+                    Data Sheet
+                </button>
             </Link>
         </div>
     );
