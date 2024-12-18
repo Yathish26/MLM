@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../smallcomponents/Loading';
 
 export default function Sheet() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -11,6 +13,7 @@ export default function Sheet() {
     if (!token) {
       navigate('/admin');
     } else {
+      setLoading(true);
       fetch(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
         method: 'GET',
         headers: {
@@ -21,6 +24,7 @@ export default function Sheet() {
         .then(data => {
           if (data.customers) {
             setUsers(data.customers);
+            setLoading(false);
           } else {
             console.error('Error fetching data:', data.message);
           }
@@ -37,15 +41,28 @@ export default function Sheet() {
     navigate('/admin');
   };
 
+  if (loading) {
+    return (
+      <div className='w-full min-h-screen flex flex-col items-center justify-center'>
+        <Loading />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
         <div className='flex p-4 w-full justify-between items-center'>
           <Link to="/admin/addusers">
-          <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Add</button>
+            <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Add</button>
           </Link>
-          <h2 className='text-xl font-bold text-gray-700 text-center py-4'>User List</h2>
-          <button onClick={handleLogout} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Logout</button>
+          <h2 className='text-xl font-bold text-gray-700 text-center py-4'>User List Sheet</h2>
+          <div className='flex gap-2'>
+            <Link to="/admin/network">
+              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Network</button>
+            </Link>
+            <button onClick={handleLogout} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Logout</button>
+          </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full table-auto border-collapse">
@@ -54,6 +71,7 @@ export default function Sheet() {
                 <th className="py-3 px-6 text-left">Name</th>
                 <th className="py-3 px-6 text-left">Customer ID</th>
                 <th className="py-3 px-6 text-left">Reference ID</th>
+                <th className="py-3 px-6 text-left">Reference Customer</th>
                 <th className="py-3 px-6 text-left">Place</th>
                 <th className="py-3 px-6 text-left">Mobile Number</th>
               </tr>
@@ -68,6 +86,7 @@ export default function Sheet() {
                   <td className="py-3 px-6 text-left">{user.name}</td>
                   <td className="py-3 px-6 text-left">{user.customerID}</td>
                   <td className="py-3 px-6 text-left">{user.referenceId}</td>
+                  <td className="py-3 px-6 text-left">{user.referenceCustomer}</td>
                   <td className="py-3 px-6 text-left">{user.place}</td>
                   <td className="py-3 px-6 text-left">{user.mobile}</td>
                 </tr>

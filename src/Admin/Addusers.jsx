@@ -4,10 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Addusers() {
     const [name, setName] = useState('');
     const [referenceId, setReferenceId] = useState('');
+    const [referenceCustomer, setReferenceCustomer] = useState('');
+    const [referenceError, setReferenceError] = useState('');
     const [place, setPlace] = useState('');
     const [mobile, setMobile] = useState('');
     const [buttonText, setButtonText] = useState('Add Customer');
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [submitDisabled, setSubmitDisabled] = useState(true); // Disable button by default
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
@@ -18,12 +21,55 @@ export default function Addusers() {
         }
     }, [navigate]);
 
+    const validateReferenceId = async (id) => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/validate-reference/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setReferenceCustomer(data.name);
+                setReferenceError('');
+                setSubmitDisabled(false); // Enable submit button
+            } else {
+                setReferenceCustomer('');
+                setReferenceError('No User Found');
+                setSubmitDisabled(true); // Disable submit button
+            }
+        } catch (error) {
+            console.error('Error validating Reference ID:', error);
+            setReferenceCustomer('');
+            setReferenceError('Error validating Reference ID');
+            setSubmitDisabled(true); // Disable submit button
+        }
+    };
+
+    const handleReferenceIdBlur = (e) => {
+        const id = e.target.value.trim();
+        setReferenceId(id);
+    
+        if (id === '') {
+            setReferenceCustomer('');
+            setReferenceError('');
+            setSubmitDisabled(true); // Disable submit button when empty
+            return;
+        }
+    
+        validateReferenceId(id); // Validate ID only on blur
+    };
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const userData = {
             name,
             referenceId,
+            referenceCustomer,
             place,
             mobile,
         };
@@ -51,6 +97,8 @@ export default function Addusers() {
                     setReferenceId('');
                     setPlace('');
                     setMobile('');
+                    setReferenceCustomer('');
+                    setSubmitDisabled(true); // Reset submit button state
                 }, 1000);
             } else {
                 setButtonText('Error');
@@ -94,9 +142,16 @@ export default function Addusers() {
                             className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                             placeholder="Enter reference ID"
                             value={referenceId}
-                            onChange={(e) => setReferenceId(e.target.value)}
+                            onChange={(e) => setReferenceId(e.target.value)} // Update state on input
+                            onBlur={handleReferenceIdBlur} // Trigger validation on blur
                             required
                         />
+                        {referenceCustomer && (
+                            <p className="mt-2 text-sm text-green-500">Reference Name: {referenceCustomer}</p>
+                        )}
+                        {referenceError && (
+                            <p className="mt-2 text-sm text-red-500">{referenceError}</p>
+                        )}
                     </div>
                     <div>
                         <label htmlFor="place" className="block text-sm font-medium text-gray-600">Place</label>
@@ -126,8 +181,8 @@ export default function Addusers() {
                     </div>
                     <button
                         type="submit"
-                        className="w-full px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-                        disabled={buttonDisabled}
+                        className={`w-full px-4 py-2 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 ${submitDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={buttonDisabled || submitDisabled}
                     >
                         {buttonText}
                     </button>

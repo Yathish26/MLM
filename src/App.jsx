@@ -8,6 +8,7 @@ import Network from './Network'
 import Admin from './Admin/Admin'
 import Sheet from './Admin/Sheet'
 import Addusers from './Admin/Addusers'
+import Graph from './Admin/Graph'
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/sheet" element={<Sheet />} />
         <Route path="/admin/addusers" element={<Addusers />} />
+        <Route path="/admin/network" element={<Graph />} />
       </Routes>
     </BrowserRouter>
   )
