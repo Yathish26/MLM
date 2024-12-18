@@ -51,17 +51,24 @@ export default function Sheet() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h2 className='text-xl font-bold text-gray-700 text-center py-4'>User List Sheet</h2>
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
         <div className='flex p-4 w-full justify-between items-center'>
           <Link to="/admin/addusers">
-            <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Add</button>
+            <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+              <img className='w-6 h-6' src="/svg/add.svg" alt="Add" />
+            </button>
           </Link>
-          <h2 className='text-xl font-bold text-gray-700 text-center py-4'>User List Sheet</h2>
+
           <div className='flex gap-2'>
             <Link to="/admin/network">
-              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Network</button>
+              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+                <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
+              </button>
             </Link>
-            <button onClick={handleLogout} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>Logout</button>
+            <button onClick={handleLogout} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+              <img className='w-6 h-6' src="/svg/logout.svg" alt="Logout" />
+            </button>
           </div>
         </div>
         <div className="overflow-x-auto">
