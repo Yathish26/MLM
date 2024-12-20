@@ -11,40 +11,49 @@ export default function Graph() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        navigate('/admin');
+    };
 
+    useEffect(() => {
         const token = localStorage.getItem('token');
 
         if (!token) {
-            navigate('/admin');
+            handleLogout();
         }
 
         const fetchData = async () => {
             try {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        Authorization: `Bearer ${token}`,
                     },
                 });
+
+                if (response.status === 401 || response.status === 403) {
+                    handleLogout(); // Handle expired or invalid token
+                    return;
+                }
+
                 const result = await response.json();
 
                 if (response.ok) {
                     const transformedData = transformDataToTree(result.customers);
                     setTreeData(transformedData);
-                    setLoading(false);
                 } else {
                     setError('Failed to fetch user data');
-                    setLoading(false);
                 }
             } catch (err) {
                 console.error('Error fetching user data:', err);
                 setError('An error occurred while fetching data');
+            } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, []);
+    }, [navigate]);
 
     const transformDataToTree = (data) => {
         const idToNodeMap = {};

@@ -7,32 +7,39 @@ export default function Admin() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    if(token){
+    if (token) {
       navigate('/admin/sheet');
     }
-  },[navigate])
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/admin/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      localStorage.setItem('token', data.token);
-
-      navigate('/admin/sheet');
-    } else {
-      setError(data.message || 'Login failed');
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        navigate('/admin/sheet');
+      } else {
+        if (data.message === 'Invalid or expired token') {
+          localStorage.removeItem('token');
+        }
+        setError(data.message || 'Login failed');
+      }
+    } catch (err) {
+      console.error('Error during login:', err);
+      setError('An error occurred during login');
     }
   };
 

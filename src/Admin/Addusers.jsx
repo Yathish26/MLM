@@ -10,7 +10,7 @@ export default function Addusers() {
     const [mobile, setMobile] = useState('');
     const [buttonText, setButtonText] = useState('Add Customer');
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [submitDisabled, setSubmitDisabled] = useState(true); // Disable button by default
+    const [submitDisabled, setSubmitDisabled] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
@@ -34,34 +34,38 @@ export default function Addusers() {
             if (response.ok) {
                 setReferenceCustomer(data.name);
                 setReferenceError('');
-                setSubmitDisabled(false); // Enable submit button
+                setSubmitDisabled(false);
+            } else if (data.message === 'Invalid or expired token') {
+                localStorage.removeItem('token');
+                navigate('/admin');
             } else {
                 setReferenceCustomer('');
                 setReferenceError('No User Found');
-                setSubmitDisabled(true); // Disable submit button
+                setSubmitDisabled(true);
             }
+
         } catch (error) {
             console.error('Error validating Reference ID:', error);
             setReferenceCustomer('');
             setReferenceError('Error validating Reference ID');
-            setSubmitDisabled(true); // Disable submit button
+            setSubmitDisabled(true);
         }
     };
 
     const handleReferenceIdBlur = (e) => {
         const id = e.target.value.trim();
         setReferenceId(id);
-    
+
         if (id === '') {
             setReferenceCustomer('');
             setReferenceError('');
-            setSubmitDisabled(true); // Disable submit button when empty
+            setSubmitDisabled(true);
             return;
         }
-    
-        validateReferenceId(id); // Validate ID only on blur
+
+        validateReferenceId(id);
     };
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -98,13 +102,18 @@ export default function Addusers() {
                     setPlace('');
                     setMobile('');
                     setReferenceCustomer('');
-                    setSubmitDisabled(true); // Reset submit button state
+                    setSubmitDisabled(true);
                 }, 1000);
+            } else if (data.message === 'Invalid or expired token') {
+                localStorage.removeItem('token');
+                navigate('/admin');
+                return;
             } else {
                 setButtonText('Error');
                 setErrorMessage(data.message || 'Error adding customer');
                 setTimeout(() => setButtonText('Add Customer'), 1000);
             }
+
         } catch (error) {
             console.error('Error:', error);
             setButtonText('Error');
@@ -142,8 +151,8 @@ export default function Addusers() {
                             className="w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
                             placeholder="Enter reference ID"
                             value={referenceId}
-                            onChange={(e) => setReferenceId(e.target.value)} // Update state on input
-                            onBlur={handleReferenceIdBlur} // Trigger validation on blur
+                            onChange={(e) => setReferenceId(e.target.value)}
+                            onBlur={handleReferenceIdBlur}
                             required
                         />
                         {referenceCustomer && (

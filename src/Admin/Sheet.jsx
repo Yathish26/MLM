@@ -7,39 +7,48 @@ export default function Sheet() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/admin');
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     if (!token) {
-      navigate('/admin');
+      handleLogout();
     } else {
       setLoading(true);
       fetch(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => {
+          if (!response.ok) {
+            if (response.status === 401 || response.status === 403) {
+              handleLogout();
+            }
+            throw new Error('Failed to fetch data');
+          }
+          return response.json();
+        })
+        .then((data) => {
           if (data.customers) {
             setUsers(data.customers);
-            setLoading(false);
           } else {
             console.error('Error fetching data:', data.message);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Error:', error);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [navigate]);
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-
-    navigate('/admin');
-  };
 
   if (loading) {
     return (
