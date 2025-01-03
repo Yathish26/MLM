@@ -6,14 +6,83 @@ export default function Sheet() {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [control, setControl] = useState(false);
+  const [editRow, setEditRow] = useState(null); // Track the row being edited
+  const [editedData, setEditedData] = useState({}); // Store edited data
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('control');
     navigate('/admin');
+  };
+
+  const handleDelete = async (customerId) => {
+    const token = localStorage.getItem('token');
+    if (!token) return handleLogout();
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/deleteuser/${customerId}`,
+        {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      }
+
+      setUsers(users.filter(user => user.customerID !== customerId));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleEdit = (user) => {
+    setEditRow(user.customerID);
+    setEditedData(user);
+  };
+
+  const handleSave = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return handleLogout();
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/admin/updateuser/${editRow}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(editedData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to update user');
+      }
+
+      const updatedUser = await response.json();
+      setUsers(users.map(user => (user.customerID === editRow ? updatedUser.customer : user)));
+      setEditRow(null);
+      setEditedData({});
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    const adminControl = localStorage.getItem('control');
+
+    if (adminControl === 'yes') {
+      setControl(true);
+    }
 
     if (!token) {
       handleLogout();
@@ -60,7 +129,10 @@ export default function Sheet() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h2 className='text-xl font-bold text-gray-700 text-center py-4'>User List Sheet</h2>
+      <h2 className='text-xl font-bold text-gray-700 text-center py-4'>Users List Sheet</h2>
+
+
+
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
         <div className='flex p-4 w-full justify-between items-center'>
           <Link to="/admin/addusers">
@@ -80,6 +152,13 @@ export default function Sheet() {
             </button>
           </div>
         </div>
+        <div class="w-full">
+          <div class=" w-fit bg-white border m-8 border-gray-300 rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Total Users</h2>
+            <p class="text-4xl font-bold text-green-500">{users.length}</p>
+          </div>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full table-auto border-collapse">
             <thead>
@@ -90,6 +169,10 @@ export default function Sheet() {
                 <th className="py-3 px-6 text-left">Reference Customer</th>
                 <th className="py-3 px-6 text-left">Place</th>
                 <th className="py-3 px-6 text-left">Mobile Number</th>
+                {control && <th className="py-3 px-6 text-left">Child 1</th>}
+                {control && <th className="py-3 px-6 text-left">Child 2</th>}
+                {control && <th className="py-3 px-6 text-left">Password</th>}
+                {control && <th className="py-3 px-6 text-left">Actions</th>}
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
@@ -99,12 +182,126 @@ export default function Sheet() {
                   className={`border-b border-gray-200 hover:bg-gray-100 ${index % 2 === 0 ? "bg-gray-50" : ""
                     }`}
                 >
-                  <td className="py-3 px-6 text-left">{user.name}</td>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.name}
+                        onChange={(e) => setEditedData({ ...editedData, name: e.target.value })}
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.name
+                    )}
+                  </td>
                   <td className="py-3 px-6 text-left">{user.customerID}</td>
-                  <td className="py-3 px-6 text-left">{user.referenceId}</td>
-                  <td className="py-3 px-6 text-left">{user.referenceCustomer}</td>
-                  <td className="py-3 px-6 text-left">{user.place}</td>
-                  <td className="py-3 px-6 text-left">{user.mobile}</td>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.referenceId}
+                        onChange={(e) => setEditedData({ ...editedData, referenceId: e.target.value })}
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.referenceId
+                    )}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.referenceCustomer}
+                        onChange={(e) =>
+                          setEditedData({ ...editedData, referenceCustomer: e.target.value })
+                        }
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.referenceCustomer
+                    )}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.place}
+                        onChange={(e) => setEditedData({ ...editedData, place: e.target.value })}
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.place
+                    )}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.mobile}
+                        onChange={(e) => setEditedData({ ...editedData, mobile: e.target.value })}
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.mobile
+                    )}
+                  </td>
+                  {control && (
+                    <td className="py-3 px-6 text-left">
+                      {user.child1 ? user.child1 : "N/A"}</td>
+                  )}
+                  {control && (
+                    <td className="py-3 px-6 text-left">
+                      {user.child2 ? user.child2 : "N/A"}</td>
+                  )}
+                  {control && (
+                    <td className="py-3 px-6 text-left">
+                      {editRow === user.customerID ? (
+                        <input
+                          type="text"
+                          value={editedData.password}
+                          onChange={(e) => setEditedData({ ...editedData, password: e.target.value })}
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        user.password
+                      )}
+                    </td>
+                  )}
+                  {control && (
+                    <td className="py-3 px-6 text-left flex gap-2">
+                      {editRow === user.customerID ? (
+                        <>
+                          <button
+                            onClick={handleSave}
+                            className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={() => setEditRow(null)}
+                            className="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            onClick={() => handleEdit(user)}
+                            className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(user.customerID)}
+                            className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

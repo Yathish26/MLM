@@ -9,6 +9,9 @@ import Admin from './Admin/Admin'
 import Sheet from './Admin/Sheet'
 import Addusers from './Admin/Addusers'
 import Graph from './Admin/Graph'
+import About from './About'
+import ChangePass from './ChangePass'
+import Test from './Admin/Test'
 
 export default function App() {
   return (
@@ -18,11 +21,16 @@ export default function App() {
         <Route path="/network" element={<Network />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/register/:id?" element={<Register />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/network" element={<Network />} />
+        <Route path="/profile/password" element={<ChangePass />} />
+        <Route path="/about" element={<About />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/sheet" element={<Sheet />} />
         <Route path="/admin/addusers" element={<Addusers />} />
         <Route path="/admin/network" element={<Graph />} />
+        <Route path="/test/add" element={<Test />} />
       </Routes>
     </BrowserRouter>
   )

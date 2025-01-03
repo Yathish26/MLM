@@ -28,6 +28,10 @@ export default function Admin() {
 
       const data = await response.json();
 
+      if (data.control) {
+        localStorage.setItem('control', data.control);
+      }
+
       if (response.ok) {
         localStorage.setItem('token', data.token);
         navigate('/admin/sheet');
@@ -62,7 +66,7 @@ export default function Admin() {
               required
             />
           </div>
-          
+
           {/* Password Field */}
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-600">Password</label>
@@ -80,7 +84,7 @@ export default function Admin() {
 
           {/* Error Message */}
           {error && <div className="text-red-500 text-sm text-center">{error}</div>}
-          
+
           {/* Login Button */}
           <button
             type="submit"
