@@ -7,8 +7,9 @@ export default function Sheet() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [control, setControl] = useState(false);
-  const [editRow, setEditRow] = useState(null); // Track the row being edited
-  const [editedData, setEditedData] = useState({}); // Store edited data
+  const [editRow, setEditRow] = useState(null);
+  const [editedData, setEditedData] = useState({});
+  const [searchQuery, setSearchQuery] = useState(''); // New state for search query
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -119,6 +120,19 @@ export default function Sheet() {
     }
   }, [navigate]);
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter users based on the search query
+  const filteredUsers = users.filter((user) => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    return (
+      user.name.toLowerCase().includes(lowercasedQuery) ||
+      user.customerID.toLowerCase().includes(lowercasedQuery)
+    );
+  });
+
   if (loading) {
     return (
       <div className='w-full min-h-screen flex flex-col items-center justify-center'>
@@ -131,7 +145,16 @@ export default function Sheet() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
       <h2 className='text-xl font-bold text-gray-700 text-center py-4'>Users List Sheet</h2>
 
-
+      {/* Search Input */}
+      <div className="mb-4 w-full max-w-xs">
+        <input
+          type="text"
+          placeholder="Search by Name or ID"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
 
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
         <div className='flex p-4 w-full justify-between items-center'>
@@ -152,10 +175,10 @@ export default function Sheet() {
             </button>
           </div>
         </div>
-        <div class="w-full">
-          <div class=" w-fit bg-white border m-8 border-gray-300 rounded-lg shadow-md p-6">
-            <h2 class="text-xl font-semibold text-gray-800 mb-4">Total Users</h2>
-            <p class="text-4xl font-bold text-green-500">{users.length}</p>
+        <div className="w-full">
+          <div className=" w-fit bg-white border m-8 border-gray-300 rounded-lg shadow-md p-6">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Total Users</h2>
+            <p className="text-4xl font-bold text-green-500">{users.length}</p>
           </div>
         </div>
 
@@ -176,7 +199,7 @@ export default function Sheet() {
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
-              {users.map((user, index) => (
+              {filteredUsers.map((user, index) => (
                 <tr
                   key={index}
                   className={`border-b border-gray-200 hover:bg-gray-100 ${index % 2 === 0 ? "bg-gray-50" : ""
