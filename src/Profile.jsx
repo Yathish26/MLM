@@ -85,17 +85,23 @@ export default function Profile() {
         <div className="min-h-screen bg-gray-100 flex flex-col">
             <Header />
             <div className='flex flex-1 justify-center items-center'>
-                <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-                    <div className="flex justify-center mb-4">
-                        <svg className='w-32 h-32' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
-                            <g id="SVGRepo_iconCarrier">
-                                <path d="M14.5 8.5C14.5 9.88071 13.3807 11 12 11C10.6193 11 9.5 9.88071 9.5 8.5C9.5 7.11929 10.6193 6 12 6C13.3807 6 14.5 7.11929 14.5 8.5Z" fill="#000000"></path>
-                                <path d="M15.5812 16H8.50626C8.09309 16 7.87415 15.5411 8.15916 15.242C9.00598 14.3533 10.5593 13 12.1667 13C13.7899 13 15.2046 14.3801 15.947 15.2681C16.2011 15.5721 15.9774 16 15.5812 16Z" fill="#000000" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-                                <circle cx="12" cy="12" r="10" stroke="#000000" strokeWidth="2"></circle>
-                            </g>
+                <div className="bg-white shadow-lg rounded-lg p-4 w-full max-w-md">
+                    <div className='w-full h-fit flex justify-end'>
+                        <button onClick={handleLogout} className='w-fit h-fit flex gap-2 justify-center items-center bg-green-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-1'>
+                            Logout
+                            <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8.16667 1.80543C7.90008 1.76891 7.62737 1.75 7.35 1.75C4.25721 1.75 1.75 4.10051 1.75 7C1.75 9.89952 4.25721 12.25 7.35 12.25C7.62737 12.25 7.90008 12.2311 8.16667 12.1946" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M10.7915 5.54175L12.2498 7.00008L10.7915 8.45841M6.4165 7.00008H11.8947" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="flex my-4 justify-center mb-4">
+                        <svg width="82" height="81" viewBox="0 0 82 81" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M41.0002 10.8154C24.4034 10.8154 10.949 24.1056 10.949 40.5C10.949 56.8944 24.4034 70.1848 41.0002 70.1848C57.597 70.1848 71.0515 56.8944 71.0515 40.5C71.0515 24.1056 57.597 10.8154 41.0002 10.8154ZM4.271 40.5C4.271 20.4624 20.7152 4.21875 41.0002 4.21875C61.2853 4.21875 77.7293 20.4624 77.7293 40.5C77.7293 60.5377 61.2853 76.7812 41.0002 76.7812C20.7152 76.7812 4.271 60.5377 4.271 40.5Z" fill="black" />
+                            <path d="M29.0415 32.0625C29.0415 25.5386 34.3954 20.25 40.9998 20.25C47.6043 20.25 52.9582 25.5386 52.9582 32.0625C52.9582 38.5864 47.6043 43.875 40.9998 43.875C34.3954 43.875 29.0415 38.5864 29.0415 32.0625Z" fill="black" />
+                            <path d="M18.4799 59.5593C21.9777 53.5126 28.4872 49.7812 35.5372 49.7812H46.4596C53.5095 49.7812 60.0193 53.5126 63.5169 59.5593L66.9989 66.1257C60.35 72.7083 51.1558 76.7809 40.9987 76.7809C30.8413 76.7809 21.647 72.708 14.998 66.1257L18.4799 59.5593Z" fill="black" />
                         </svg>
+
                     </div>
                     <h2 className="text-center text-3xl font-semibold text-gray-800 mb-4">
                         {profile.name}
@@ -104,26 +110,23 @@ export default function Profile() {
                         <span className="font-medium text-gray-700">ID:</span>
                         <span className="text-gray-600">{profile.customerID}</span>
                     </div>
-                    <div className="space-y-4">
-                        <div className="flex justify-between">
-                            <span className="font-medium text-gray-700">Phone:</span>
-                            <span className="text-gray-600">{profile.mobile}</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span className="font-medium text-gray-700">Place:</span>
-                            <span className="text-gray-600">{profile.place}</span>
-                        </div>
-                    </div>
-                    <div className="mt-6 text-center">
-                        <button onClick={handleLogout} className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
-                            Logout
-                        </button>
-                    </div>
-                    <div className="mt-6 text-center">
+                    <div className="my-3 text-center">
                         <button onClick={handleRefferal} className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
                             Copy Referral Link
                         </button>
                     </div>
+                    
+                    <div className=" flex flex-col items-center gap-2">
+                        <div className="flex gap-2">
+                            <span className="font-medium text-gray-700">Phone:</span>
+                            <span className="text-gray-600">{profile.mobile}</span>
+                        </div>
+                        <div className="flex gap-2">
+                            <span className="font-medium text-gray-700">Place:</span>
+                            <span className="text-gray-600">{profile.place}</span>
+                        </div>
+                    </div>
+
                     <Link to="/profile/password">
                         <div className="mt-6 text-center">
                             <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
