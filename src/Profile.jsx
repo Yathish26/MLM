@@ -141,6 +141,13 @@ export default function Profile() {
                             </button>
                         </div>
                     </Link>
+                    <Link to="/profile/network/list">
+                        <div className="mt-6 text-center">
+                            <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
+                                My Network List
+                            </button>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

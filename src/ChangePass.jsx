@@ -90,6 +90,9 @@ export default function ChangePass() {
                 setOldPassword('');
                 setNewPassword('');
                 setConfirmPassword('');
+                setTimeout(() => {
+                    navigate('/profile');
+                }, 1000);
             } else {
                 setError(result.message || 'Failed to change password. Please try again.');
             }

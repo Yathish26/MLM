@@ -115,7 +115,7 @@ export default function Network() {
       <Header />
       <div style={{ height: '100vh', width: '100%' }} className="bg-gray-100">
         <h2 className="text-center text-2xl font-bold mb-4 text-blue-600">
-          Hope Community Welfare Network
+          My Network
         </h2>
         <div
           style={{

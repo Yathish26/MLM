@@ -3,7 +3,7 @@ import Header from './Header';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 via-teal-400 to-indigo-500 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-r from-green-500 via-teal-400 to-indigo-500 flex flex-col">
       <Header/>
       <main className="flex-grow flex flex-col justify-center items-center text-center p-10">
         <h1 className="text-4xl font-bold text-gray-800 mb-6 drop-shadow-md">
