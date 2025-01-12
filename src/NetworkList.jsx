@@ -25,7 +25,7 @@ export default function FamilyNetwork() {
         });
         setSSID(profileResponse.data.profile);
 
-        const dataResponse = await axios.get('http://localhost:5000/admin/sheet', {
+        const dataResponse = await axios.get(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
           headers: {
             'Authorization': `Bearer ${customertoken}`,
             'Content-Type': 'application/json',
@@ -85,19 +85,24 @@ export default function FamilyNetwork() {
         <Loading />
       </div>
     );
-    
+
   if (error) return <div>{error}</div>;
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">{ssid ? `${ssid.name}'s Network` : 'Loading...'}</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
+        {ssid ? `${ssid.name}'s Network` : 'Loading...'}
+      </h2>
       <div className="bg-white shadow-lg rounded-lg p-6">
         {userData.length === 0 ? (
           <div className="text-center text-gray-600">No family members found.</div>
         ) : (
-          <div className="space-y-4">
-            {renderFamilyList(userData)}
-          </div>
+          <>
+            <div className="text-center mb-4 text-lg font-semibold text-gray-700">
+              Total Network Users: {userData.length - 1}
+            </div>
+            <div className="space-y-4">{renderFamilyList(userData)}</div>
+          </>
         )}
       </div>
     </div>
