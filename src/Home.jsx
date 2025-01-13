@@ -21,7 +21,6 @@ export default function Home() {
       <footer className="bg-gray-800 text-white text-center py-6">
         <div className="container mx-auto px-4">
           <p className="text-sm md:text-base">&copy; {new Date().getFullYear()} Hope Community Welfare Foundation. All rights reserved.</p>
-          <p className="text-xs md:text-sm mt-2">Follow us on social media for the latest updates!</p>
         </div>
       </footer>
     </div>
