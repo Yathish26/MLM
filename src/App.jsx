@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './Home'
 import Login from './Login'
 import Register from './Register'
@@ -11,8 +11,9 @@ import Addusers from './Admin/Addusers'
 import Graph from './Admin/Graph'
 import About from './About'
 import ChangePass from './ChangePass'
-import Test from './Admin/Test'
 import NetworkList from './NetworkList'
+import Epin from './Admin/Epin'
+import Task from './Task'
 
 export default function App() {
   return (
@@ -28,12 +29,15 @@ export default function App() {
         <Route path="/profile/network/list" element={<NetworkList />} />
         <Route path="/profile/password" element={<ChangePass />} />
         <Route path="/about" element={<About />} />
+        <Route path="/tasks" element={<Task />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/sheet" element={<Sheet />} />
         <Route path="/admin/addusers" element={<Addusers />} />
         <Route path="/admin/network" element={<Graph />} />
-        <Route path="/test/add" element={<Test />} />
+        <Route path="/admin/epin" element={<Epin />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   )
 }
+

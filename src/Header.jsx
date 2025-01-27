@@ -12,7 +12,7 @@ export default function Header() {
                 </Link>
 
                 <Link to="/">
-                    <h1 className="text-2xl font-bold tracking-wide text-center text-gray-800">
+                    <h1 className="text-2xl font-bold tracking-wide text-center text-green-50">
                         Hope Community Welfare Foundation
                     </h1>
                 </Link>
@@ -20,10 +20,12 @@ export default function Header() {
 
             {/* Navigation Links */}
             <ul className="flex gap-4 my-4">
-                <li><Link to="/" className="text-lg hover:text-green-200 text-gray-800 transition-all">Home</Link></li>
-                <li><Link to="/about" className="text-lg hover:text-green-200 text-gray-800 transition-all">About</Link></li>
-                <li><Link to="/profile" className="text-lg hover:text-green-200 text-gray-800 transition-all">Profile</Link></li>
-                <li><Link to="/admin" className="text-lg hover:text-green-200 text-gray-800 transition-all">Admin</Link></li>
+                <li><Link to="/" className="text-lg hover:text-green-200 text-green-50 transition-all">Home</Link></li>
+                <li><Link to="/about" className="text-lg hover:text-green-200 text-green-50 transition-all">About</Link></li>
+                <li><Link to="/profile" className="text-lg hover:text-green-200 text-green-50 transition-all">Profile</Link></li>
+                <li><Link to="/tasks" className="text-lg hover:text-green-200 text-green-50 transition-all">Task</Link></li>
+                {/* <li><Link to="/admin" className="text-lg hover:text-green-200 text-green-50 transition-all">Admin</Link></li> */}
+                
             </ul>
         </nav>
     );

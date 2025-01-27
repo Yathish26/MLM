@@ -12,6 +12,7 @@ export default function Register() {
         place: '',
         refId: id || '', // Initialize refId with the value from the URL
         referenceCustomer: '',
+        pin: '',
         password: '',
     });
     const [referenceName, setReferenceName] = useState('');
@@ -145,6 +146,20 @@ export default function Register() {
                             )}
                         </div>
                         <div className="mb-4">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pin">
+                                EPIN
+                            </label>
+                            <input
+                                type="text"
+                                id="pin"
+                                className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+                                placeholder="Enter EPIN"
+                                value={formData.pin}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                                 Password
                             </label>
@@ -166,9 +181,6 @@ export default function Register() {
                         >
                             {isSubmitting ? 'Submitting...' : 'Register'}
                         </button>
-                        {errorMessage && (
-                            <p className="text-red-600 text-sm mt-4">{errorMessage}</p>
-                        )}
                     </form>
                     <Link to={'/login'}>
                         <div className="text-green-600 mt-4 cursor-pointer">

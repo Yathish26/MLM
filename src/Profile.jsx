@@ -8,6 +8,8 @@ export default function Profile() {
     const [profile, setProfile] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [copy, setCopy] = useState('Copy Refferal Link');
+    const [level, setLevel] = useState('');
 
     const navigate = useNavigate();
 
@@ -55,9 +57,27 @@ export default function Profile() {
                 setLoading(false);
             }
         };
-
         fetchProfile();
-    }, []);
+    }, [navigate]);
+
+    useEffect(() => {
+        if (!profile) return;
+
+        const fetchLevel = async () => {
+            setLoading(true);
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/level-check?customerID=${profile.customerID}`);
+                setLevel(response.data.level);
+            } catch (err) {
+                setError(true);
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchLevel();
+    }, [profile]);
 
     const handleLogout = () => {
         localStorage.removeItem('customertoken');
@@ -67,6 +87,8 @@ export default function Profile() {
     const handleRefferal = () => {
         const link = `${window.location.origin}/register/${profile.customerID}`
         navigator.clipboard.writeText(link);
+        setCopy('Copied!');
+        setTimeout(() => setCopy('Copy Refferal Link'), 2000);
     }
 
     if (loading) {
@@ -78,7 +100,7 @@ export default function Profile() {
     }
 
     if (error) {
-        return <FailedProfile />;
+        navigate('/login');
     }
 
     return (
@@ -90,14 +112,14 @@ export default function Profile() {
                         <button onClick={handleLogout} className='w-fit h-fit flex gap-2 justify-center items-center bg-green-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-300 focus:ring-offset-1'>
                             Logout
                             <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M8.16667 1.80543C7.90008 1.76891 7.62737 1.75 7.35 1.75C4.25721 1.75 1.75 4.10051 1.75 7C1.75 9.89952 4.25721 12.25 7.35 12.25C7.62737 12.25 7.90008 12.2311 8.16667 12.1946" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M10.7915 5.54175L12.2498 7.00008L10.7915 8.45841M6.4165 7.00008H11.8947" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M8.16667 1.80543C7.90008 1.76891 7.62737 1.75 7.35 1.75C4.25721 1.75 1.75 4.10051 1.75 7C1.75 9.89952 4.25721 12.25 7.35 12.25C7.62737 12.25 7.90008 12.2311 8.16667 12.1946" stroke="white" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M10.7915 5.54175L12.2498 7.00008L10.7915 8.45841M6.4165 7.00008H11.8947" stroke="white" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </button>
                     </div>
                     <div className="flex my-4 justify-center mb-4">
                         <svg width="82" height="81" viewBox="0 0 82 81" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M41.0002 10.8154C24.4034 10.8154 10.949 24.1056 10.949 40.5C10.949 56.8944 24.4034 70.1848 41.0002 70.1848C57.597 70.1848 71.0515 56.8944 71.0515 40.5C71.0515 24.1056 57.597 10.8154 41.0002 10.8154ZM4.271 40.5C4.271 20.4624 20.7152 4.21875 41.0002 4.21875C61.2853 4.21875 77.7293 20.4624 77.7293 40.5C77.7293 60.5377 61.2853 76.7812 41.0002 76.7812C20.7152 76.7812 4.271 60.5377 4.271 40.5Z" fill="black" />
+                            <path fillRule="evenodd" clipRule="evenodd" d="M41.0002 10.8154C24.4034 10.8154 10.949 24.1056 10.949 40.5C10.949 56.8944 24.4034 70.1848 41.0002 70.1848C57.597 70.1848 71.0515 56.8944 71.0515 40.5C71.0515 24.1056 57.597 10.8154 41.0002 10.8154ZM4.271 40.5C4.271 20.4624 20.7152 4.21875 41.0002 4.21875C61.2853 4.21875 77.7293 20.4624 77.7293 40.5C77.7293 60.5377 61.2853 76.7812 41.0002 76.7812C20.7152 76.7812 4.271 60.5377 4.271 40.5Z" fill="black" />
                             <path d="M29.0415 32.0625C29.0415 25.5386 34.3954 20.25 40.9998 20.25C47.6043 20.25 52.9582 25.5386 52.9582 32.0625C52.9582 38.5864 47.6043 43.875 40.9998 43.875C34.3954 43.875 29.0415 38.5864 29.0415 32.0625Z" fill="black" />
                             <path d="M18.4799 59.5593C21.9777 53.5126 28.4872 49.7812 35.5372 49.7812H46.4596C53.5095 49.7812 60.0193 53.5126 63.5169 59.5593L66.9989 66.1257C60.35 72.7083 51.1558 76.7809 40.9987 76.7809C30.8413 76.7809 21.647 72.708 14.998 66.1257L18.4799 59.5593Z" fill="black" />
                         </svg>
@@ -106,16 +128,18 @@ export default function Profile() {
                     <h2 className="text-center text-3xl font-semibold text-gray-800 mb-4">
                         {profile.name}
                     </h2>
+
+                    <h3 className="text-center text-xl font-semibold text-gray-800 mb-4">{level}</h3>
                     <div className="flex items-center justify-center space-x-2 mb-4">
                         <span className="font-medium text-gray-700">ID:</span>
                         <span className="text-gray-600">{profile.customerID}</span>
                     </div>
                     <div className="my-3 text-center">
                         <button onClick={handleRefferal} className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
-                            Copy Referral Link
+                            {copy}
                         </button>
                     </div>
-                    
+
                     <div className=" flex flex-col items-center gap-2">
                         <div className="flex gap-2">
                             <span className="font-medium text-gray-700">Phone:</span>

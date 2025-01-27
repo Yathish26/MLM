@@ -9,7 +9,7 @@ export default function Sheet() {
   const [control, setControl] = useState(false);
   const [editRow, setEditRow] = useState(null);
   const [editedData, setEditedData] = useState({});
-  const [searchQuery, setSearchQuery] = useState(''); // New state for search query
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -129,7 +129,8 @@ export default function Sheet() {
     const lowercasedQuery = searchQuery.toLowerCase();
     return (
       user.name.toLowerCase().includes(lowercasedQuery) ||
-      user.customerID.toLowerCase().includes(lowercasedQuery)
+      user.customerID.toLowerCase().includes(lowercasedQuery) ||
+      user.mobile.toLowerCase().includes(lowercasedQuery)
     );
   });
 
@@ -149,11 +150,18 @@ export default function Sheet() {
 
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
         <div className='flex p-4 w-full justify-between items-center'>
-          <Link to="/admin/addusers">
-            <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-              <img className='w-6 h-6' src="/svg/add.svg" alt="Add" />
-            </button>
-          </Link>
+          <div className='flex gap-2'>
+            <Link to="/admin/addusers">
+              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+                <img className='w-6 h-6' src="/svg/add.svg" alt="Add" />
+              </button>
+            </Link>
+            <Link to="/admin/epin">
+              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+                <img className='w-6 h-6' src="/svg/pin.svg" alt="Epin" />
+              </button>
+            </Link>
+          </div>
 
           <div className='flex gap-2'>
             <Link to="/admin/network">

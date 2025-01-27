@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from './smallcomponents/Loading';
 import axios from 'axios';
+import Header from './Header';
 
 export default function FamilyNetwork() {
   const [userData, setUserData] = useState([]);
@@ -89,22 +90,25 @@ export default function FamilyNetwork() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
-        {ssid ? `${ssid.name}'s Network` : 'Loading...'}
-      </h2>
-      <div className="bg-white shadow-lg rounded-lg p-6">
-        {userData.length === 0 ? (
-          <div className="text-center text-gray-600">No family members found.</div>
-        ) : (
-          <>
-            <div className="text-center mb-4 text-lg font-semibold text-gray-700">
-              Total Network Users: {userData.length - 1}
-            </div>
-            <div className="space-y-4">{renderFamilyList(userData)}</div>
-          </>
-        )}
+    <>
+    <Header/>
+      <div className="flex-1 bg-gray-50 p-6">
+        <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
+          {ssid ? `${ssid.name}'s Network` : 'Loading...'}
+        </h2>
+        <div className="bg-white shadow-lg rounded-lg p-6">
+          {userData.length === 0 ? (
+            <div className="text-center text-gray-600">No family members found.</div>
+          ) : (
+            <>
+              <div className="text-center mb-4 text-lg font-semibold text-gray-700">
+                Total Network Users: {userData.length - 1}
+              </div>
+              <div className="space-y-4">{renderFamilyList(userData)}</div>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
