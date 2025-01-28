@@ -196,6 +196,7 @@ export default function Sheet() {
           <table className="w-full table-auto border-collapse">
             <thead>
               <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                <th className="py-3 px-6 text-left">S/N</th>
                 <th className="py-3 px-6 text-left">Name</th>
                 <th className="py-3 px-6 text-left">Customer ID</th>
                 <th className="py-3 px-6 text-left">Reference ID</th>
@@ -210,11 +211,13 @@ export default function Sheet() {
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
               {filteredUsers.map((user, index) => (
+                
                 <tr
                   key={index}
                   className={`border-b border-gray-200 hover:bg-gray-100 ${index % 2 === 0 ? "bg-gray-50" : ""
                     }`}
                 >
+                  <td className="py-3 px-6 text-left">{index + 1}</td>
                   <td className="py-3 px-6 text-left">
                     {editRow === user.customerID ? (
                       <input
