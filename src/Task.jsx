@@ -95,7 +95,7 @@ export default function Task() {
     if (loading) {
         return (
             <div className="flex-1 flex items-center justify-center min-h-screen bg-green-50">
-                <Loading/>
+                <Loading />
             </div>
         )
     }
@@ -112,7 +112,7 @@ export default function Task() {
                         <h2 className="text-2xl font-semibold text-green-700 mb-4 border-b pb-2">Task 1</h2>
                         <ul>
                             <li className="mb-6 bg-green-50 rounded-lg p-4 shadow-md">
-                                <h3 className="text-lg font-bold text-green-800 mb-2">Send Payment</h3>
+                                <h3 className="text-lg font-bold text-green-800 mb-2">Send Payment (ಹಣವನ್ನು ಕಳುಹಿಸಿ)</h3>
                                 <p className="text-gray-700 mb-1">Make a payment to <span className="font-semibold">{tasks.name || 'Hope Community Trust'}</span></p>
                                 <p className="text-gray-700 mb-1">Mobile Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span></p>
                                 <p className="text-gray-700">Google Pay Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span></p>
@@ -131,7 +131,7 @@ export default function Task() {
                         <ul>
                             {level2 &&
                                 <li className="mb-6 bg-green-50 rounded-lg p-4 shadow-md">
-                                    <h3 className="text-lg font-bold text-green-800 mb-2">Receive Payment</h3>
+                                    <h3 className="text-lg font-bold text-green-800 mb-2">Receive Payment (ಹಣವನ್ನು ಸ್ವೀಕರಿಸಿ)</h3>
                                     <div className="grid grid-cols-2 gap-4">
                                         {/* Check for the first array */}
                                         {childs?.references?.level2?.[0]?.children?.length > 0 ? (
@@ -166,8 +166,17 @@ export default function Task() {
                         </ul>
                         {childs?.references?.level2?.[0]?.children?.length > 0 && (
                             <div>
-                                <p className='italic text-gray-700'>You will receive a total of ₹1200 from 4 people above as ₹300 each.</p>
-                                <p className='italic text-gray-700'>After receiving a total of ₹1200,then only you need to proceed to Task 3.</p>
+                                <div className="flex flex-col gap-2">
+                                    <div>
+                                        <p className='italic text-gray-700'>You will receive a total of ₹1200 from 4 people above as ₹300 each.</p>
+                                        <p className='italic text-gray-700'>After receiving a total of ₹1200,then only you need to proceed to Task 3.</p>
+                                    </div>
+                                    <div className='w-fill h-[1px] bg-gray-300'></div>
+                                    <div>
+                                        <p className='italic text-gray-700'>ನೀವು 4 ಜನರಿಂದ ತಲಾ ₹300ರಂತೆ ಒಟ್ಟು ₹1200 ಸ್ವೀಕರಿಸುತ್ತೀರಿ.</p>
+                                        <p className='italic text-gray-700'>ಒಟ್ಟು ₹1200 ಸ್ವೀಕರಿಸಿದ ನಂತರ, ಮಾತ್ರ ನೀವು ಕಾರ್ಯ 3 ಗೆ ಮುಂದುವರಿಯಬೇಕು.</p>
+                                    </div>
+                                </div>
                                 <h1 className="text-xl font-medium text-green-800 mt-4">Receiving Total Payment of</h1>
                                 <div className="flex items-center my-2 gap-2">
                                     <span className="text-green-500 font-bold text-4xl">₹1200 INR</span>
@@ -192,7 +201,11 @@ export default function Task() {
                                                 <path d="M15 8.49833V4.1103C15 3.22096 14.279 2.5 13.3897 2.5C13.1336 2.5 12.8812 2.56108 12.6534 2.67818L3.7623 7.24927C3.29424 7.48991 3 7.97203 3 8.49833" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </div>
-                                        <p className="text-gray-700 italic mb-1">Total Received ₹1200 INR. In that ₹600 is your first payment and another ₹600 to update your upline network.</p>
+                                        <div className='flex flex-col gap-2'>
+                                            <p className="text-gray-700 italic mb-1">Total Received ₹1200 INR. In that ₹600 is your first payment and another ₹600 you need to update your upline network.</p>
+                                            <div className='w-fill h-[1px] bg-gray-300'></div>
+                                            <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹1200 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹600 ನಿಮ್ಮ ಮೊದಲ ಪಾವತಿ ಮತ್ತು ಇನ್ನೊಂದು ₹600 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ.</p>
+                                        </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
                                         <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[1]?.name || 'Hope Community Trust'}</span></p>
                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[1]?.mobile || '9740609159'}</span></p>
@@ -220,7 +233,11 @@ export default function Task() {
                                                 <path d="M15 8.49833V4.1103C15 3.22096 14.279 2.5 13.3897 2.5C13.1336 2.5 12.8812 2.56108 12.6534 2.67818L3.7623 7.24927C3.29424 7.48991 3 7.97203 3 8.49833" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </div>
-                                        <p className="text-gray-700 italic mb-1">Total Received ₹4800 INR. In that ₹2800 is your second payment and ₹2000 to update your upline network.</p>
+                                        <div className='flex flex-col gap-2'>
+                                            <p className="text-gray-700 italic mb-1">Total Received ₹4800 INR. In that ₹2800 is your second payment and other ₹2000 you have to update to your upline network.</p>
+                                            <div className='w-fill h-[1px] bg-gray-300'></div>
+                                            <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹4800 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹2800 ನಿಮ್ಮ ಎರಡನೇ ಪಾವತಿ ಮತ್ತು ಇತರ ₹2000 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್‌ಗೆ ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕು.</p>
+                                        </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
                                         <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[2]?.name || 'Hope Community Trust'}</span></p>
                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[2]?.mobile || '9740609159'}</span></p>
@@ -248,7 +265,11 @@ export default function Task() {
                                                 <path d="M15 8.49833V4.1103C15 3.22096 14.279 2.5 13.3897 2.5C13.1336 2.5 12.8812 2.56108 12.6534 2.67818L3.7623 7.24927C3.29424 7.48991 3 7.97203 3 8.49833" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </div>
-                                        <p className="text-gray-700 italic mb-1">Total Received ₹32000 INR. In that ₹28000 is your third payment and ₹4000 to update your upline network.</p>
+                                        <div className='flex flex-col gap-2'>
+                                            <p className="text-gray-700 italic mb-1">Total Received ₹32000 INR. In that ₹28000 is your third payment and ₹4000 you need to update your upline network.</p>
+                                            <div className='w-fill h-[1px] bg-gray-300'></div>
+                                            <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹32000 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹28000 ನಿಮ್ಮ ಮೂರನೇ ಪಾವತಿಯಾಗಿದೆ ಮತ್ತು ₹4000 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ.</p>
+                                        </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
                                         <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[3]?.name || 'Hope Community Trust'}</span></p>
                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[3]?.mobile || '9740609159'}</span></p>
@@ -276,7 +297,11 @@ export default function Task() {
                                                 <path d="M15 8.49833V4.1103C15 3.22096 14.279 2.5 13.3897 2.5C13.1336 2.5 12.8812 2.56108 12.6534 2.67818L3.7623 7.24927C3.29424 7.48991 3 7.97203 3 8.49833" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </div>
-                                        <p className="text-gray-700 italic mb-1">Total Received ₹128000 INR. In that ₹120000 is your fourth payment and ₹8000 to update your upline network.</p>
+                                        <div className='flex flex-col gap-2'>
+                                        <p className="text-gray-700 italic mb-1">Total Received ₹128000 INR. In that ₹120000 is your fourth payment and ₹8000 you need to update your upline network.</p>
+                                        <div className='w-fill h-[1px] bg-gray-300'></div>
+                                        <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹128000 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹120000 ನಿಮ್ಮ ನಾಲ್ಕನೇ ಪಾವತಿಯಾಗಿದೆ ಮತ್ತು ₹8000 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ.</p>
+                                        </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
                                         <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[4]?.name || 'Hope Community Trust'}</span></p>
                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[4]?.mobile || '9740609159'}</span></p>
@@ -304,7 +329,11 @@ export default function Task() {
                                                 <path d="M15 8.49833V4.1103C15 3.22096 14.279 2.5 13.3897 2.5C13.1336 2.5 12.8812 2.56108 12.6534 2.67818L3.7623 7.24927C3.29424 7.48991 3 7.97203 3 8.49833" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
                                         </div>
-                                        <p className="text-gray-700 italic mb-1">Total Received ₹512000 INR. In that ₹496000 is your fifth and final payment and ₹16000 to update your upline network.</p>
+                                        <div className='flex flex-col gap-2'>
+                                        <p className="text-gray-700 italic mb-1">Total Received ₹512000 INR. In that ₹496000 is your fifth and final payment and ₹16000 you have to update your upline network.</p>
+                                        <div className='w-fill h-[1px] bg-gray-300'></div>
+                                        <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹512000 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹496000 ನಿಮ್ಮ ಐದನೇ ಮತ್ತು ಅಂತಿಮ ಪಾವತಿ ಮತ್ತು ₹16000 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕು.</p>
+                                        </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
                                         <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[5]?.name || 'Hope Community Trust'}</span></p>
                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[5]?.mobile || '9740609159'}</span></p>

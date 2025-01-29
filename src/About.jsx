@@ -10,7 +10,7 @@ export default function About() {
         { role: "Vice President", rolekannada: "ಉಪಾಧ್ಯಕ್ಷರು", name: "Loyeed Dsouza", photo: "https://i.ibb.co/dp9GVJb/Whats-App-Image-2024-12-21-at-12-39-05-AM.jpg", place: "Manjeshwar, Kasaragod, Kerala", mobileNumber: "8590130454" },
         { role: "Joint Secretary", rolekannada: "ಉಪ ಕಾರ್ಯದರ್ಶಿ", name: "Shahid Moodbidri", photo: "https://i.ibb.co/K0VmCnj/Whats-App-Image-2024-12-21-at-1-48-45-PM.jpg", place: "Moodbidri", mobileNumber: "9606435717" },
         { role: "Secretary", rolekannada: "ಕಾರ್ಯದರ್ಶಿ", name: "Lalitha Ithal", photo: "https://i.ibb.co/JFZQNZK/Whats-App-Image-2024-12-21-at-12-42-28-AM.jpg", place: "Polali, Kaikamba", mobileNumber: "8123089380" },
-        
+
     ];
 
     return (
@@ -44,6 +44,17 @@ export default function About() {
                     </div>
 
                     <div className="space-y-4">
+                        <h2 className="text-lg sm:text-xl font-bold text-green-700">ಇದು ಹೇಗೆ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ</h2>
+                        <p className="text-green-600 text-base">ನಿಮ್ಮ ಏಕಕಾಲದ ಹೂಡಿಕೆ <span className="font-semibold">₹351</span> ಎರಡು ಭಾಗಗಳಾಗಿ ವಿಂಗಡಿಸಲಾಗುತ್ತದೆ:</p>
+                        <ul className="list-decimal pl-6 space-y-2 text-green-600">
+                            <li><span className="font-semibold">₹51</span>: ನಮ್ಮ ಚಾರಿಟಿ ನಿಧಿಗೆ ನೇರವಾಗಿ ದಾನವಾಗಿ ನೀಡಲಾಗುತ್ತದೆ, ಅಗತ್ಯವಿರುವವರಿಗೆ ಬೆಂಬಲ ನೀಡಲು.</li>
+                            <li><span className="font-semibold">₹300</span>: ನಿಮ್ಮ ತಂಡದೊಳಗೆ ಹಂಚಲಾಗುತ್ತದೆ, ಎಲ್ಲರಿಗೂ ಆರ್ಥಿಕ ಅವಕಾಶಗಳನ್ನು ಸೃಷ್ಟಿಸಲು.</li>
+                        </ul>
+                        <p className="text-green-600 text-base">ಈ ವಿಶಿಷ್ಟ ಮಾದರಿಯ ಮೂಲಕ, ನಿಮ್ಮ ಕೊಡುಗೆ ಪರೋಪಕಾರಿ ಕಾರಣಗಳನ್ನು ಬೆಂಬಲಿಸುವುದಲ್ಲದೇ, ನಿಮ್ಮ ತಂಡದೊಳಗೆ ಆದಾಯ ಸರಪಳಿಯನ್ನು ರಚಿಸಿ, ನಿರಂತರ ಆರ್ಥಿಕ ಲಾಭವನ್ನು ಖಚಿತಪಡಿಸುತ್ತದೆ.</p>
+                    </div>
+
+
+                    <div className="space-y-4">
                         <h2 className="text-lg sm:text-xl font-bold text-green-700">Earning Structure</h2>
                         <ul className="list-none space-y-2 text-green-600">
                             <li><span className="font-semibold">2 Members:</span> No income earned yet.</li>
@@ -54,6 +65,19 @@ export default function About() {
                             <li><span className="font-semibold">64 Members:</span> Earn ₹5,12,000 (₹16,000 from each), with ₹16,000 for upgrades donated to charity.</li>
                         </ul>
                     </div>
+
+                    <div className="space-y-4">
+                        <h2 className="text-lg sm:text-xl font-bold text-green-700">ಆದಾಯ ಸಂಕಲನ</h2>
+                        <ul className="list-none space-y-2 text-green-600">
+                            <li><span className="font-semibold">2 ಸದಸ್ಯರು:</span> ಇನ್ನೂ ಆದಾಯ ಲಭ್ಯವಿಲ್ಲ.</li>
+                            <li><span className="font-semibold">4 ಸದಸ್ಯರು:</span> ₹1200 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹300), ಇದರಲ್ಲಿ ₹600 ನಾಯಕ ನವೀಕರಣಕ್ಕೆ ಮೀಸಲಾಗಿದೆ.</li>
+                            <li><span className="font-semibold">8 ಸದಸ್ಯರು:</span> ₹4800 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹600), ಇದರಲ್ಲಿ ₹1200 ನವೀಕರಣಗಳಿಗೆ.</li>
+                            <li><span className="font-semibold">16 ಸದಸ್ಯರು:</span> ₹32,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹2000), ಇದರಲ್ಲಿ ₹4000 ನವೀಕರಣಗಳಿಗೆ.</li>
+                            <li><span className="font-semibold">32 ಸದಸ್ಯರು:</span> ₹1,28,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹4000), ಇದರಲ್ಲಿ ₹8000 ನವೀಕರಣಗಳಿಗೆ.</li>
+                            <li><span className="font-semibold">64 ಸದಸ್ಯರು:</span> ₹5,12,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹16,000), ಇದರಲ್ಲಿ ₹16,000 ದಾನವಾಗಿ ಚಾರಿಟಿಗೆ ನೀಡಲಾಗುತ್ತದೆ.</li>
+                        </ul>
+                    </div>
+
 
                     <div className="space-y-4">
                         <h2 className="text-lg sm:text-xl font-bold text-green-700">Key Benefits & Restrictions</h2>
@@ -76,6 +100,7 @@ export default function About() {
                     <div className="space-y-4">
                         <h2 className="text-lg sm:text-xl font-bold text-green-700">Helpline Number</h2>
                         <p className="text-green-600">For any queries or doubts, please call <a className="font-semibold" href="tel:+919547526854">+91 9740609159</a>.</p>
+                        <p className="text-green-600">ಯಾವುದೇ ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಅನುಮಾನಗಳಿಗಾಗಿ, ದಯವಿಟ್ಟು ಕರೆ ಮಾಡಿ <a className="font-semibold" href="tel:+919547526854">+91 9740609159</a>.</p>
                     </div>
                 </div>
 
@@ -88,7 +113,7 @@ export default function About() {
                     </div>
                 </div>
 
-                <h2 className="text-lg sm:text-xl font-bold text-green-700 my-8">Board Members</h2>
+                <h2 className="text-lg sm:text-xl font-bold text-green-700 my-8">Board Members (ಸದಸ್ಯರು)</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {team.map((member, index) => (
                         <div
@@ -112,18 +137,12 @@ export default function About() {
                 </div>
 
                 <h2 className="text-lg sm:text-xl font-bold text-green-700 my-8">Technical Team</h2>
-                <a href="https://hirearrive.in" target="_blank" rel="noopener noreferrer">
-                    <div className="bg-white gap-4 w-fit rounded-lg shadow-lg p-6 flex flex-col items-center text-center border border-green-200 hover:shadow-xl transition-all">
-                        <img className="rounded-2xl w-28 h-28 sm:w-36 sm:h-36" src="https://iili.io/2il2Y1j.png" alt="Hire Arrive" />
-                        <div className="flex flex-col justify-center">
-                            <h1 className="text-lg sm:text-xl font-bold text-green-700">Hire Arrive</h1>
-                            <p className="text-green-600 text-base">hirearrive@gmail.com</p>
-                        </div>
-                    </div>
+                <a className='w-full flex justify-center' href="https://hirearrive.in" target="_blank" rel="noopener noreferrer">
+                    <img src="https://i.ibb.co/hx2tMK3B/Card-Remark.png" alt="Hire Arrive" />
                 </a>
-                
+
             </div>
-            <Footer/>
+            <Footer />
         </>
     );
 }

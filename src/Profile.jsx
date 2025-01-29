@@ -151,10 +151,11 @@ export default function Profile() {
                         </div>
                     </div>
 
-                    <Link to="/profile/password">
+                    
+                    <Link to="/tasks">
                         <div className="mt-6 text-center">
                             <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
-                                Change Password
+                                My Tasks
                             </button>
                         </div>
                     </Link>
@@ -169,6 +170,13 @@ export default function Profile() {
                         <div className="mt-6 text-center">
                             <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
                                 My Network List
+                            </button>
+                        </div>
+                    </Link>
+                    <Link to="/profile/password">
+                        <div className="mt-6 text-center">
+                            <button className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600">
+                                Change Password
                             </button>
                         </div>
                     </Link>
