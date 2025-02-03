@@ -335,9 +335,9 @@ export default function Task() {
                                         <p className="text-gray-700 italic mb-1">ಒಟ್ಟು ₹512000 INR ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ಅದರಲ್ಲಿ ₹496000 ನಿಮ್ಮ ಐದನೇ ಮತ್ತು ಅಂತಿಮ ಪಾವತಿ ಮತ್ತು ₹16000 ನೀವು ನಿಮ್ಮ ಅಪ್‌ಲೈನ್ ನೆಟ್‌ವರ್ಕ್ ಅನ್ನು ಅಪ್‌ಡೇಟ್ ಮಾಡಬೇಕು.</p>
                                         </div>
                                         <h4 className="text-md font-bold text-green-700 mt-4 mb-2">Send Payment</h4>
-                                        <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{payee?.profiles[5]?.name || 'Hope Community Trust'}</span></p>
-                                        <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{payee?.profiles[5]?.mobile || '9740609159'}</span></p>
-                                        <p className="text-gray-700">Google Pay Number: <span className="font-semibold">{payee?.profiles[5]?.mobile || '9740609159'}</span></p>
+                                        <p className="text-gray-700 mb-1">To Name: <span className="font-semibold">{'Hope Community Trust'}</span></p>
+                                        <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{'9740609159'}</span></p>
+                                        <p className="text-gray-700">Google Pay Number: <span className="font-semibold">{'9740609159'}</span></p>
                                         <div className="flex items-center gap-2 my-2">
                                             <p className="text-green-500 font-bold text-3xl">₹16000 INR</p>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" className="injected-svg" data-src="https://cdn.hugeicons.com/icons/arrow-up-right-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#22c55e">

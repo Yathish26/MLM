@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
@@ -12,6 +12,15 @@ export default function Login() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const navigate = useNavigate();
+
+
+    useEffect(()=>{
+       const customertoken = localStorage.getItem('customertoken'); 
+
+       if(customertoken){
+        navigate('/profile');
+       }
+    },[])
 
     const handleChange = (e) => {
         const { id, value } = e.target;
