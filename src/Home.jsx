@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-      navigate('/login');
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-green-500 via-teal-400 to-indigo-500 flex flex-col">
