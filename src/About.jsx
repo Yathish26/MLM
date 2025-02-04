@@ -137,9 +137,19 @@ export default function About() {
                 </div>
 
                 <h2 className="text-lg sm:text-xl font-bold text-green-700 my-8">Technical Team</h2>
-                <a className='w-full flex justify-center' href="https://hirearrive.in" target="_blank" rel="noopener noreferrer">
-                    <img src="https://i.ibb.co/hx2tMK3B/Card-Remark.png" alt="Hire Arrive" />
-                </a>
+                <div className='w-full flex flex-col justify-center gap-4 items-center'>
+                    <a className='w-fit flex justify-center items-center flex-col gap-4' href="https://hirearrive.in" target="_blank" rel="noopener noreferrer">
+                        <img className='object-contain w-40 h-40 sm:w-60 sm:h-60' src="https://i.ibb.co/hx2tMK3B/Card-Remark.png" alt="Hire Arrive" />
+                    </a>
+                    <div className='flex flex-col justify-center items-center'>
+                        <p className='text-green-600 cursor-pointer font-semibold'>For Any Queries Mail Us on</p>
+                        <a href="mailto:hirearrive@gmail.com" className="text-green-600 font-semibold">
+                            hirearrive@gmail.com
+                        </a>
+                    </div>
+
+                </div>
+
 
             </div>
             <Footer />

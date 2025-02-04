@@ -147,7 +147,7 @@ export default function Register() {
                         </div>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pin">
-                                EPIN
+                                EPIN <span className="font-thin">(For EPIN Contact 9740609159 )</span>
                             </label>
                             <input
                                 type="text"
