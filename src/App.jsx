@@ -14,6 +14,7 @@ import ChangePass from './ChangePass'
 import NetworkList from './NetworkList'
 import Epin from './Admin/Epin'
 import Task from './Task'
+import NewGraph from './Admin/NewGraph'
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/admin/sheet" element={<Sheet />} />
         <Route path="/admin/addusers" element={<Addusers />} />
         <Route path="/admin/network" element={<Graph />} />
+        <Route path="/admin/newnetwork" element={<NewGraph />} />
         <Route path="/admin/epin" element={<Epin />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

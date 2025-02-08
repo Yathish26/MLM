@@ -164,6 +164,11 @@ export default function Sheet() {
           </div>
 
           <div className='flex gap-2'>
+            <Link to="/admin/newnetwork">
+              <button className='bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600'>
+                <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
+              </button>
+            </Link>
             <Link to="/admin/network">
               <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
                 <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
