@@ -9,11 +9,12 @@ export default function FamilyNetwork() {
   const [loading, setLoading] = useState(true);
   const [ssid, setSSID] = useState('');
   const [error, setError] = useState('');
+  const [levels, setLevels] = useState({});
+  const [expandedLevels, setExpandedLevels] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
     const customertoken = localStorage.getItem('customertoken');
-
     if (!customertoken) {
       navigate('/login');
       return;
@@ -26,23 +27,18 @@ export default function FamilyNetwork() {
         });
         setSSID(profileResponse.data.profile);
 
-        const dataResponse = await axios.get(`${import.meta.env.VITE_API_URL}/admin/sheet`, {
+        const levelResponse = await axios.get(`${import.meta.env.VITE_API_URL}/level-check?customerID=${profileResponse.data.profile.customerID}`, {
           headers: {
-            'Authorization': `Bearer ${customertoken}`,
+            Authorization: `Bearer ${customertoken}`,
             'Content-Type': 'application/json',
           },
         });
 
-        const data = dataResponse.data.customers;
-
-        const loggedInUser = data.find(user => user.customerID === profileResponse.data.profile.customerID);
-
-        if (loggedInUser) {
-          const family = getFamilyMembers(loggedInUser, data, new Set());
-          setUserData(family);
-        } else {
-          setError('User not found.');
-        }
+        const formattedLevels = {};
+        Object.keys(levelResponse.data.references).forEach(level => {
+          formattedLevels[level] = levelResponse.data.references[level].flatMap(person => person.children || []);
+        });
+        setLevels(formattedLevels);
       } catch (err) {
         setError('An error occurred while fetching data.');
         console.error(err);
@@ -54,59 +50,51 @@ export default function FamilyNetwork() {
     fetchUserData();
   }, [navigate]);
 
-  // Get all family members, without duplicates
-  const getFamilyMembers = (user, allUsers, seenUsers) => {
-    if (seenUsers.has(user.customerID)) return [];
-    seenUsers.add(user.customerID);
-
-    // Start with the user and find all their descendants (children, grandchildren, etc.)
-    const familyMembers = [user];
-
-    const children = allUsers.filter(u => u.referenceId === user.customerID);
-    children.forEach(child => {
-      familyMembers.push(...getFamilyMembers(child, allUsers, seenUsers));
-    });
-
-    return familyMembers;
+  const toggleLevel = (level) => {
+    setExpandedLevels(prev => ({ ...prev, [level]: !prev[level] }));
   };
 
-  const renderFamilyList = (family) => {
-    return family.map((person, index) => (
-      <div key={index} className="border-b py-4">
-        <div className="font-semibold">{person.name}</div>
-        <div className="text-sm text-gray-600">Mobile: {person.mobile}</div>
-        <div className="text-sm text-gray-600">Place: {person.place}</div>
-      </div>
-    ));
-  };
-
-  if (loading)
+  if (loading) {
     return (
       <div className="flex w-full justify-center items-center min-h-screen">
         <Loading />
       </div>
     );
+  }
 
   if (error) return <div>{error}</div>;
 
   return (
     <>
-    <Header/>
+      <Header />
       <div className="flex-1 bg-gray-50 p-6">
         <h2 className="text-3xl font-bold text-center mb-6 text-blue-700">
           {ssid ? `${ssid.name}'s Network` : 'Loading...'}
         </h2>
         <div className="bg-white shadow-lg rounded-lg p-6">
-          {userData.length === 0 ? (
-            <div className="text-center text-gray-600">No family members found.</div>
-          ) : (
-            <>
-              <div className="text-center mb-4 text-lg font-semibold text-gray-700">
-                Total Network Users: {userData.length - 1}
+          {Object.keys(levels).map((level, index) => (
+            levels[level].length > 0 && (
+              <div key={index} className="mb-4">
+                <div
+                  className="cursor-pointer font-semibold text-lg text-blue-600 hover:underline"
+                  onClick={() => toggleLevel(level)}
+                >
+                  {level.toUpperCase()} - {levels[level].length} Members
+                </div>
+                {expandedLevels[level] && (
+                  <div className="pl-4 mt-2 space-y-2">
+                    {levels[level].map((person, i) => (
+                      <div key={i} className="border-b py-2">
+                        <div className="font-semibold">{person.name}</div>
+                        <div className="text-sm text-gray-600">Mobile: {person.mobile}</div>
+                        <div className="text-sm text-gray-600">Place: {person.place}</div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <div className="space-y-4">{renderFamilyList(userData)}</div>
-            </>
-          )}
+            )
+          ))}
         </div>
       </div>
     </>
