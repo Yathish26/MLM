@@ -11,6 +11,9 @@ export default function Task() {
     const [level2, setLevel2] = useState(false);
     const [payee, setPayee] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [paid, setPaid] = useState(false);
+    const [paidStatus, setPaidStatus] = useState('Pending');
+    const [profile, setProfile] = useState([]);
 
     const navigate = useNavigate();
 
@@ -28,6 +31,7 @@ export default function Task() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
+                setProfile(response.data.profile || []);
                 setCID(response.data.profile?.customerID || null);
             } catch (error) {
                 console.error("Error fetching customer details:", error);
@@ -92,6 +96,78 @@ export default function Task() {
     }, [cID]);
 
 
+    const fetchPaid = async () => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/get-paid?customerID=${cID}`);
+
+            if (response.data.message === "No result") {
+                setPaid(false);
+                return;
+            }
+
+            const status = response.data.isPaid;
+
+            if (status === "Paid") {
+                setPaid(true);
+                setPaidStatus("Paid");
+            } else if (status === "Pending") {
+                setPaid(true);
+                setPaidStatus("Pending");
+            } else {
+                setPaid(false);
+            }
+        } catch (error) {
+            console.error("Error fetching upgrade details:", error);
+        }
+    };
+
+
+
+    useEffect(() => {
+        fetchPaid();
+    }, [cID]);
+
+    const handlepaid = async () => {
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/add-paid`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: profile?.name || 'NA',
+                    mobile: profile?.mobile || 'NA',
+                    customerID: profile?.customerID || 'NA',
+                    referenceCustomer: tasks?.name || 'Hope Community Trust',
+                    referenceId: tasks?.customerID || 'SS0000000001',
+                    referenceCustomerMobile: tasks?.mobile || '9740609159',
+                    isPaid: "Pending"
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setPaid?.(true);
+            } else {
+                console.error('Error:', data.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
+
+    const Paymentstatus = () => {
+        return (
+            <div className='flex flex-col gap-2'>
+                <p>Thank you for making the payment !</p>
+                <p className='text-sm'>Payment Status : {paidStatus}</p>
+            </div>
+        )
+    }
+
+
     return (
         <div className="flex-1 min-h-screen bg-green-50">
             <Header />
@@ -106,21 +182,72 @@ export default function Task() {
                     <div className="flex flex-col gap-6 w-full items-center">
                         <div className="bg-white shadow-lg rounded-lg p-6 w-full lg:w-1/2">
                             <h2 className="text-2xl font-semibold text-green-700 mb-4 border-b pb-2">Task 1</h2>
-                            <ul>
-                                <li className="mb-6 bg-green-50 rounded-lg p-4 shadow-md">
-                                    <h3 className="text-lg font-bold text-green-800 mb-2">Send Payment (ಹಣವನ್ನು ಕಳುಹಿಸಿ)</h3>
-                                    <p className="text-gray-700 mb-1">Make a payment to <span className="font-semibold">{tasks.name || 'Hope Community Trust'}</span></p>
-                                    <p className="text-gray-700 mb-1">Mobile Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span></p>
-                                    <p className="text-gray-700">Google Pay Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span></p>
-                                    <div className="flex items-center my-2 gap-2">
-                                        <p className="text-green-500 font-bold text-4xl">₹300 INR</p>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" className="injected-svg" data-src="https://cdn.hugeicons.com/icons/arrow-up-right-03-stroke-sharp.svg" xmlnsXlink="http://www.w3.org/1999/xlink" role="img" color="#22c55e">
+
+                            {paidStatus === "Paid" ? (
+                                <div className="mb-6 bg-green-100 border-l-4 border-green-500 rounded-lg p-6 shadow-lg">
+                                    <h3 className="text-lg font-bold text-green-800 flex items-center mb-2">
+                                        ✅ Task 1 Completed
+                                    </h3>
+                                    <p className="text-green-700">Thank you for the payment!</p>
+                                </div>
+                            ) : (
+                                <div className="mb-6 bg-green-50 rounded-lg p-6 shadow-md">
+                                    {/* Title */}
+                                    <h3 className="text-lg font-bold text-green-800 mb-3">
+                                        Send Payment (ಹಣವನ್ನು ಕಳುಹಿಸಿ)
+                                    </h3>
+
+                                    {/* Payment Details */}
+                                    <p className="text-gray-700">
+                                        Make a payment to <span className="font-semibold">{tasks.name || 'Hope Community Trust'}</span>
+                                    </p>
+                                    <p className="text-gray-700">
+                                        Mobile Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span>
+                                    </p>
+                                    <p className="text-gray-700">
+                                        Google Pay Number: <span className="font-semibold">{tasks.mobile || '9740609159'}</span>
+                                    </p>
+
+                                    {/* Amount Section */}
+                                    <div className="flex items-center gap-2 my-4">
+                                        <p className="text-green-500 font-bold text-3xl">₹300 INR</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" role="img">
                                             <path d="M17.5 6.5L6 18" stroke="#22c55e" strokeWidth="2" strokeLinecap="square"></path>
                                             <path d="M8 6H18V16" stroke="#22c55e" strokeWidth="2" strokeLinecap="square"></path>
                                         </svg>
                                     </div>
-                                </li>
-                            </ul>
+
+                                    {/* Payment Confirmation Box */}
+                                    <div className="bg-green-100 border border-green-300 rounded-lg shadow-md">
+                                        <p className="text-green-800 m-4 font-semibold">
+                                            After making the payment, send the screenshot to
+                                            <span className="font-bold"> 9740609159 on WhatsApp</span>
+                                        </p>
+                                        <p className="text-green-800 m-4 font-semibold">
+                                            ಪಾವತಿ ಮಾಡಿದ ನಂತರ, ಸ್ಕ್ರೀನ್‌ಶಾಟ್ ಅನ್ನು ಈ ಸಂಖ್ಯೆಗೆ ಕಳುಹಿಸಿ
+                                            <span className="font-bold"> 9740609159 WhatsApp ನಲ್ಲಿ</span>
+                                        </p>
+
+
+                                        <div className="mt-4 p-4 bg-green-200 shadow-inner">
+                                            <div className="text-green-900 font-medium text-lg">
+                                                {paid ? <Paymentstatus /> : "Payment Done?"}
+                                            </div>
+
+                                            {!paid && (
+                                                <button
+                                                    onClick={handlepaid}
+                                                    className="mt-3 px-5 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition"
+                                                >
+                                                    Yes
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+
                         </div>
                         <div className="bg-white shadow-lg rounded-lg p-6 w-full lg:w-1/2">
                             <h2 className="text-2xl font-semibold text-green-700 mb-4 border-b pb-2">Task 2</h2>
@@ -136,6 +263,20 @@ export default function Task() {
                                                         <p className="text-green-500 font-bold text-2xl">₹300 INR</p>
                                                         <p className="text-gray-700 mb-1">Receive Payment from <span className="font-semibold">{child.name || 'Unknown'}</span></p>
                                                         <p className="text-gray-700 mb-1">Contact Number: <span className="font-semibold">{child.mobile || 'N/A'}</span></p>
+                                                        {/* <div className="flex flex-col border mt-4 border-green-300 rounded-lg bg-green-100 p-4 shadow-md">
+                                                            <p className="text-green-900 font-medium">
+                                                                Received Payment from <span className="font-semibold">{child.name || 'Unknown'} ? </span>
+                                                            </p>
+
+                                                            <div className="flex gap-4 mt-3">
+                                                                <button className="bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition">
+                                                                    Yes
+                                                                </button>
+                                                                <button className="bg-red-500 text-white px-5 py-2 rounded-lg shadow hover:bg-red-600 transition">
+                                                                    No
+                                                                </button>
+                                                            </div>
+                                                        </div> */}
                                                     </div>
                                                 ))
                                             ) : (
@@ -153,6 +294,21 @@ export default function Task() {
                                                         <p className="text-gray-700 mb-1">
                                                             Contact Number: <span className="font-semibold">{child.mobile || 'N/A'}</span>
                                                         </p>
+                                                        {/* <div className="flex flex-col border mt-4 border-green-300 rounded-lg bg-green-100 p-4 shadow-md">
+                                                            <p className="text-green-900 font-medium">
+                                                                Received Payment from <span className="font-semibold">{child.name || 'Unknown'} ? </span>
+                                                            </p>
+
+                                                            <div className="flex gap-4 mt-3">
+                                                                <button className="bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition">
+                                                                    Yes
+                                                                </button>
+                                                                <button className="bg-red-500 text-white px-5 py-2 rounded-lg shadow hover:bg-red-600 transition">
+                                                                    No
+                                                                </button>
+                                                            </div>
+                                                        </div> */}
+
                                                     </div>
                                                 ))
                                             )}

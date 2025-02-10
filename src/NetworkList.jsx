@@ -82,15 +82,29 @@ export default function FamilyNetwork() {
                   {level.toUpperCase()} - {levels[level].length} Members
                 </div>
                 {expandedLevels[level] && (
-                  <div className="pl-4 mt-2 space-y-2">
-                    {levels[level].map((person, i) => (
-                      <div key={i} className="border-b py-2">
-                        <div className="font-semibold">{person.name}</div>
-                        <div className="text-sm text-gray-600">Mobile: {person.mobile}</div>
-                        <div className="text-sm text-gray-600">Place: {person.place}</div>
-                      </div>
-                    ))}
-                  </div>
+                  <div className="mt-4 overflow-x-auto">
+                  <table className="w-full border border-gray-300">
+                    <thead className="bg-gray-100">
+                      <tr className="text-left">
+                        <th className="border px-4 py-2">S/No</th>
+                        <th className="border px-4 py-2">Name</th>
+                        <th className="border px-4 py-2">Mobile</th>
+                        <th className="border px-4 py-2">Place</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {levels[level].map((person, i) => (
+                        <tr key={i} className="border hover:bg-gray-50">
+                          <td className="border px-4 py-2">{i + 1}</td>
+                          <td className="border px-4 py-2">{person.name}</td>
+                          <td className="border px-4 py-2">{person.mobile}</td>
+                          <td className="border px-4 py-2">{person.place}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
                 )}
               </div>
             )

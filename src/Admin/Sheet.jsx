@@ -161,6 +161,11 @@ export default function Sheet() {
                 <img className='w-6 h-6' src="/svg/pin.svg" alt="Epin" />
               </button>
             </Link>
+            <Link to="/admin/paysheet">
+              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
+                <img className='w-6 h-6' src="/svg/bill.svg" alt="Epin" />
+              </button>
+            </Link>
           </div>
 
           <div className='flex gap-2'>
