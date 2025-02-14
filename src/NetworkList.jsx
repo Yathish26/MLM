@@ -34,10 +34,24 @@ export default function FamilyNetwork() {
           },
         });
 
+        const references = levelResponse.data.references;
         const formattedLevels = {};
-        Object.keys(levelResponse.data.references).forEach(level => {
-          formattedLevels[level] = levelResponse.data.references[level].flatMap(person => person.children || []);
+
+        Object.keys(references).forEach((level, index) => {
+          formattedLevels[level] = [];
+
+          references[level].forEach((sponsor) => {
+            sponsor.children?.forEach((child) => {
+              formattedLevels[level].push({
+                ...child,
+                sponsorID: sponsor.customerID,
+                sponsorName: sponsor.name,
+                sponsorMobile: sponsor.mobile || "N/A",
+              });
+            });
+          });
         });
+
         setLevels(formattedLevels);
       } catch (err) {
         setError('An error occurred while fetching data.');
@@ -49,6 +63,7 @@ export default function FamilyNetwork() {
 
     fetchUserData();
   }, [navigate]);
+
 
   const toggleLevel = (level) => {
     setExpandedLevels(prev => ({ ...prev, [level]: !prev[level] }));
@@ -83,28 +98,35 @@ export default function FamilyNetwork() {
                 </div>
                 {expandedLevels[level] && (
                   <div className="mt-4 overflow-x-auto">
-                  <table className="w-full border border-gray-300">
-                    <thead className="bg-gray-100">
-                      <tr className="text-left">
-                        <th className="border px-4 py-2">S/No</th>
-                        <th className="border px-4 py-2">Name</th>
-                        <th className="border px-4 py-2">Mobile</th>
-                        <th className="border px-4 py-2">Place</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {levels[level].map((person, i) => (
-                        <tr key={i} className="border hover:bg-gray-50">
-                          <td className="border px-4 py-2">{i + 1}</td>
-                          <td className="border px-4 py-2">{person.name}</td>
-                          <td className="border px-4 py-2">{person.mobile}</td>
-                          <td className="border px-4 py-2">{person.place}</td>
+                    <table className="w-full border border-gray-300">
+                      <thead className="bg-gray-100">
+                        <tr className="text-left">
+                          <th className="border px-4 py-2">S/No</th>
+                          <th className="border px-4 py-2">ID</th>
+                          <th className="border px-4 py-2">Name</th>
+                          <th className="border px-4 py-2">Mobile</th>
+                          <th className="border px-4 py-2">Sponsor ID</th>
+                          <th className="border px-4 py-2">Sponsor Name</th>
+                          <th className="border px-4 py-2">Sponsor Contact</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                
+                      </thead>
+                      <tbody>
+                        {levels[level].map((person, i) => (
+                          <tr key={i} className="border hover:bg-gray-50">
+                            <td className="border px-4 py-2">{i + 1}</td>
+                            <td className="border px-4 py-2">{person.customerID}</td>
+                            <td className="border px-4 py-2">{person.name}</td>
+                            <td className="border px-4 py-2">{person.mobile}</td>
+                            <td className="border px-4 py-2">{person.sponsorID}</td>
+                            <td className="border px-4 py-2">{person.sponsorName}</td>
+                            <td className="border px-4 py-2">{person.sponsorMobile}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+
+                  </div>
+
                 )}
               </div>
             )

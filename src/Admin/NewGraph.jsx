@@ -5,9 +5,9 @@ const MLMTree = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [openNodes, setOpenNodes] = useState({});
+  const [isAllOpen, setIsAllOpen] = useState(false);
 
   const navigate = useNavigate();
-
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -44,6 +44,18 @@ const MLMTree = () => {
     }));
   };
 
+  const toggleAllNodes = () => {
+    const newState = !isAllOpen;
+    const updatedNodes = {};
+
+    data.forEach((person) => {
+      updatedNodes[person.customerID] = newState;
+    });
+
+    setOpenNodes(updatedNodes);
+    setIsAllOpen(newState);
+  };
+
   const buildTree = (data, parentId = "SS0000000001") => {
     const children = data.filter((person) => person.referenceId === parentId);
     if (!children.length) return null;
@@ -52,10 +64,7 @@ const MLMTree = () => {
       <ul>
         {children.map((person) => (
           <li key={person.customerID}>
-            <div
-              className="node"
-              onClick={() => toggleNode(person.customerID)}
-            >
+            <div className="node" onClick={() => toggleNode(person.customerID)}>
               {person.name}
             </div>
             {openNodes[person.customerID] && buildTree(data, person.customerID)}
@@ -72,7 +81,14 @@ const MLMTree = () => {
   return (
     <div>
       <h1>MLM Structure</h1>
+      <button
+        onClick={toggleAllNodes}
+        className="mb-4 px-4 py-2 bg-black text-white rounded shadow-md hover:bg-blue-600"
+      >
+        {isAllOpen ? "Close All" : "Open All"}
+      </button>
       {buildTree(data)}
+
       <style>
         {`
           body {
@@ -117,6 +133,10 @@ const MLMTree = () => {
             background-color: #f0f0f0;
             border-radius: 4px;
             display: inline-block;
+            margin-bottom: 10px;
+          }
+          button {
+            display: block;
             margin-bottom: 10px;
           }
         `}

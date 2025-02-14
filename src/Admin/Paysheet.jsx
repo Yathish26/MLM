@@ -9,7 +9,8 @@ export default function Paysheet() {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/get-paid`);
-        setData(response.data);
+        const responseData = Array.isArray(response.data) ? response.data : []; // Ensure response is an array
+        setData(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -20,14 +21,33 @@ export default function Paysheet() {
     fetchData();
   }, []);
 
-  const handleApprove = async (customerID) => {
+  const handleApprove = async (customerID, amount) => {
     try {
-      await axios.put(`${import.meta.env.VITE_API_URL}/get-paid?customerID=${customerID}`, {
-        isPaid: "Paid",
-      });
+      const amountFieldMap = {
+        300: "isPaid",
+        600: "isPaid2",
+        2000: "isPaid3",
+        4000: "isPaid4",
+        8000: "isPaid5",
+        16000: "isPaid6",
+      };
+
+      const fieldToUpdate = amountFieldMap[amount];
+
+      if (!fieldToUpdate) {
+        console.error("Invalid amount. No corresponding field found.");
+        return;
+      }
+
+      const updatePayload = { [fieldToUpdate]: "Paid" };
+
+      await axios.put(`${import.meta.env.VITE_API_URL}/get-paid?customerID=${customerID}&amount=${amount}`, updatePayload);
+
       setData((prevData) =>
         prevData.map((item) =>
-          item.customerID === customerID ? { ...item, isPaid: "Paid" } : item
+          item.customerID === customerID && item.amount === amount
+            ? { ...item, [fieldToUpdate]: "Paid" }
+            : item
         )
       );
     } catch (error) {
@@ -35,18 +55,31 @@ export default function Paysheet() {
     }
   };
 
-  const handleReject = async (customerID) => {
+  const handleReject = async (customerID, amount) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/get-paid?customerID=${customerID}`);
-      setData((prevData) => prevData.filter((item) => item.customerID !== customerID));
+      await axios.delete(`${import.meta.env.VITE_API_URL}/get-paid`, {
+        params: { customerID, amount },
+      });
+
+      setData((prevData) =>
+        prevData.filter((item) => !(item.customerID === customerID && item.amount === amount))
+      );
     } catch (error) {
       console.error("Error rejecting payment:", error);
     }
   };
 
-  // Separate pending and approved lists
-  const pendingPayments = data.filter((item) => item.isPaid !== "Paid");
-  const approvedPayments = data.filter((item) => item.isPaid === "Paid");
+  const isPaidFields = ["isPaid", "isPaid2", "isPaid3", "isPaid4", "isPaid5", "isPaid6"];
+
+  // Ensure `data` is an array before calling `filter`
+  const approvedPayments = Array.isArray(data)
+    ? data.filter((item) => isPaidFields.some((field) => item?.[field] === "Paid"))
+    : [];
+
+  const pendingPayments = Array.isArray(data)
+    ? data.filter((item) => !isPaidFields.some((field) => item?.[field] === "Paid"))
+    : [];
+
 
   return (
     <div className="p-4 bg-white shadow-md rounded-lg">
@@ -68,6 +101,7 @@ export default function Paysheet() {
                   <th className="border border-green-300 px-4 py-2">Receiver</th>
                   <th className="border border-green-300 px-4 py-2">Receiver Mobile</th>
                   <th className="border border-green-300 px-4 py-2">Status</th>
+                  <th className="border border-green-300 px-4 py-2">Amount</th>
                   <th className="border border-green-300 px-4 py-2">Date</th>
                   <th className="border border-green-300 px-4 py-2">Actions</th>
                 </tr>
@@ -81,20 +115,21 @@ export default function Paysheet() {
                       <td className="border border-green-300 px-4 py-2">{item.customerID}</td>
                       <td className="border border-green-300 px-4 py-2">{item.referenceCustomer}</td>
                       <td className="border border-green-300 px-4 py-2">{item.referenceCustomerMobile}</td>
-                      <td className="border border-green-300 px-4 py-2 text-red-500 font-semibold">{item.isPaid}</td>
+                      <td className="border border-green-300 px-4 py-2 text-red-500 font-semibold">{item.isPaid || item.isPaid2 || item.isPaid3 || item.isPaid4 || item.isPaid5 || item.isPaid6}</td>
+                      <td className="border border-green-300 px-4 py-2 font-semibold">{item.amount}</td>
                       <td className="border border-green-300 px-4 py-2">
                         {new Date(item.createdAt).toLocaleDateString()}
                       </td>
                       <td className="border border-green-300 px-4 py-2">
                         <button
                           className="bg-green-500 text-white px-3 py-1 rounded mr-2 hover:bg-green-700"
-                          onClick={() => handleApprove(item.customerID)}
+                          onClick={() => handleApprove(item.customerID, item.amount)}
                         >
                           Approve
                         </button>
                         <button
                           className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-700"
-                          onClick={() => handleReject(item.customerID)}
+                          onClick={() => handleReject(item.customerID, item.amount)}
                         >
                           Reject
                         </button>
@@ -124,6 +159,7 @@ export default function Paysheet() {
                   <th className="border border-green-300 px-4 py-2">Receiver</th>
                   <th className="border border-green-300 px-4 py-2">Receiver Mobile</th>
                   <th className="border border-green-300 px-4 py-2">Status</th>
+                  <th className="border border-green-300 px-4 py-2">Amount</th>
                   <th className="border border-green-300 px-4 py-2">Date</th>
                   <th className="border border-green-300 px-4 py-2">Actions</th>
                 </tr>
@@ -137,7 +173,8 @@ export default function Paysheet() {
                       <td className="border border-green-300 px-4 py-2">{item.customerID}</td>
                       <td className="border border-green-300 px-4 py-2">{item.referenceCustomer}</td>
                       <td className="border border-green-300 px-4 py-2">{item.referenceCustomerMobile}</td>
-                      <td className="border border-green-300 px-4 py-2 text-green-700 font-semibold">{item.isPaid}</td>
+                      <td className="border border-green-300 px-4 py-2 text-green-700 font-semibold">{item.isPaid || item.isPaid2 || item.isPaid3 || item.isPaid4 || item.isPaid5 || item.isPaid6}</td>
+                      <td className="border border-green-300 px-4 py-2 text-green-700 font-semibold">{item.amount}</td>
                       <td className="border border-green-300 px-4 py-2">
                         {new Date(item.createdAt).toLocaleDateString()}
                       </td>

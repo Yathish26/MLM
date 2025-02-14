@@ -43,7 +43,7 @@ export default function Profile() {
         const fetchLevel = async () => {
             setLoading(true);
             try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/level-check?customerID=${profile.customerID}`);
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/customer-level?customerID=${profile.customerID}`);
                 setLevel(response.data.level);
             } catch (err) {
                 setError(true);
