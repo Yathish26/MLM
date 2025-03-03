@@ -118,7 +118,7 @@ export default function Paysheet() {
                       <td className="border border-green-300 px-4 py-2 text-red-500 font-semibold">{item.isPaid || item.isPaid2 || item.isPaid3 || item.isPaid4 || item.isPaid5 || item.isPaid6}</td>
                       <td className="border border-green-300 px-4 py-2 font-semibold">{item.amount}</td>
                       <td className="border border-green-300 px-4 py-2">
-                        {new Date(item.createdAt).toLocaleDateString()}
+                        {new Date(item.createdAt).toLocaleDateString("en-GB")}
                       </td>
                       <td className="border border-green-300 px-4 py-2">
                         <button
@@ -176,7 +176,7 @@ export default function Paysheet() {
                       <td className="border border-green-300 px-4 py-2 text-green-700 font-semibold">{item.isPaid || item.isPaid2 || item.isPaid3 || item.isPaid4 || item.isPaid5 || item.isPaid6}</td>
                       <td className="border border-green-300 px-4 py-2 text-green-700 font-semibold">{item.amount}</td>
                       <td className="border border-green-300 px-4 py-2">
-                        {new Date(item.createdAt).toLocaleDateString()}
+                        {new Date(item.createdAt).toLocaleDateString("en-GB")}
                       </td>
                       <td className="border border-green-300 px-4 py-2 text-green-600 font-semibold">
                         Approved
