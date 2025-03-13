@@ -293,11 +293,31 @@ export default function Sheet() {
                   </td>
                   {control && (
                     <td className="py-3 px-6 text-left">
-                      {user.child1 ? user.child1 : "N/A"}</td>
+                      {editRow === user.customerID ? (
+                        <input
+                          type="text"
+                          value={editedData.child1}
+                          onChange={(e) => setEditedData({ ...editedData, child1: e.target.value })}
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        user.child1 ? user.child1 : "N/A"
+                      )}
+                    </td>
                   )}
                   {control && (
                     <td className="py-3 px-6 text-left">
-                      {user.child2 ? user.child2 : "N/A"}</td>
+                      {editRow === user.customerID ? (
+                        <input
+                          type="text"
+                          value={editedData.child2}
+                          onChange={(e) => setEditedData({ ...editedData, child2: e.target.value })}
+                          className="border p-2 rounded w-full"
+                        />
+                      ) : (
+                        user.child2 ? user.child2 : "N/A"
+                      )}
+                    </td>
                   )}
                   {control && (
                     <td className="py-3 px-6 text-left">
