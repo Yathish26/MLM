@@ -59,7 +59,7 @@ export default function Login() {
                                 className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
                                 placeholder="Enter your ID"
                                 value={formData.id}
-                                onChange={handleChange}
+                                onChange={(e) => handleChange({ target: { id: e.target.id, value: e.target.value.replace(/\s+/g, '') } })}
                                 required
                             />
                         </div>
@@ -73,7 +73,7 @@ export default function Login() {
                                 className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
                                 placeholder="Enter your password"
                                 value={formData.password}
-                                onChange={handleChange}
+                                onChange={(e) => handleChange({ target: { id: e.target.id, value: e.target.value.replace(/\s+/g, '') } })}
                                 required
                             />
                         </div>

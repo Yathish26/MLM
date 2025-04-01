@@ -128,7 +128,14 @@ export default function Addusers() {
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <div className="w-full max-w-lg p-8 space-y-6 bg-white shadow-md rounded-lg">
                 <h2 className="text-2xl font-bold text-center text-gray-700">Add Customer</h2>
-                <form className="space-y-4" onSubmit={handleSubmit}>
+                <div className="flex items-center justify-center bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4" role="alert">
+                    <svg className="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01m-6.938 4h13.856c1.054 0 1.582 1.28.832 2.02l-6.929 7.07a1.25 1.25 0 01-1.796 0l-6.93-7.07c-.75-.74-.222-2.02.832-2.02z"></path>
+                    </svg>
+                    <span className="font-bold">Alert:</span>
+                    <span className="ml-2">Currently Disabled</span>
+                </div>
+                {/* <form className="space-y-4" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="name" className="block text-sm font-medium text-gray-600">Name</label>
                         <input
@@ -198,7 +205,7 @@ export default function Addusers() {
                     {errorMessage && (
                         <p className="mt-2 text-sm text-red-500">{errorMessage}</p>
                     )}
-                </form>
+                </form> */}
             </div>
             <Link to={'/admin/sheet'}>
                 <button className="w-52 px-4 py-2 mt-4 text-white bg-green-500 rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400">

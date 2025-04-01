@@ -63,7 +63,7 @@ export default function Register() {
         setSuccessMessage('');
 
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/register`, formData);
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/addtonetworkepin`, formData);
             setSuccessMessage(response.data.customerID);
         } catch (err) {
             console.error(err);
@@ -134,7 +134,7 @@ export default function Register() {
                                 className="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
                                 placeholder="Reference ID"
                                 value={formData.refId}
-                                onChange={handleChange}
+                                onChange={(e) => handleChange({ target: { id: e.target.id, value: e.target.value.replace(/\s+/g, '') } })}
                                 onBlur={validateReference}
                                 required
                             />
