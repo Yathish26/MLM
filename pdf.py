@@ -59,7 +59,7 @@ def generate_pdf(descendants, output_path):
 if __name__ == "__main__":
     json_file_path = "CData.json"  # Replace with your JSON file path
     output_pdf_path = "descendants_report.pdf"  # Output file
-    root_customer_id = "SS2970600915"  # Change as needed
+    root_customer_id = "SS2343800151"  # Change as needed
 
     data = load_json(json_file_path)
     descendants = find_descendants(root_customer_id, data)

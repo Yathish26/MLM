@@ -59,7 +59,7 @@ export default function About() {
                         <ul className="list-none space-y-2 text-green-600">
                             <li><span className="font-semibold">2 Members:</span> No income earned yet.</li>
                             <li><span className="font-semibold">4 Members:</span> Earn ₹1200 (₹300 from each member), with ₹600 going towards a leader upgrade.</li>
-                            <li><span className="font-semibold">8 Members:</span> Earn ₹4800 (₹600 from each member), with ₹1200 for upgrades.</li>
+                            <li><span className="font-semibold">8 Members:</span> Earn ₹4800 (₹600 from each member), with ₹2000 for upgrades.</li>
                             <li><span className="font-semibold">16 Members:</span> Earn ₹32,000 (₹2000 from each), with ₹4000 for upgrades.</li>
                             <li><span className="font-semibold">32 Members:</span> Earn ₹1,28,000 (₹4000 from each), with ₹8000 for upgrades.</li>
                             <li><span className="font-semibold">64 Members:</span> Earn ₹5,12,000 (₹16,000 from each), with ₹16,000 for upgrades donated to charity.</li>
@@ -71,7 +71,7 @@ export default function About() {
                         <ul className="list-none space-y-2 text-green-600">
                             <li><span className="font-semibold">2 ಸದಸ್ಯರು:</span> ಇನ್ನೂ ಆದಾಯ ಲಭ್ಯವಿಲ್ಲ.</li>
                             <li><span className="font-semibold">4 ಸದಸ್ಯರು:</span> ₹1200 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹300), ಇದರಲ್ಲಿ ₹600 ನಾಯಕ ನವೀಕರಣಕ್ಕೆ ಮೀಸಲಾಗಿದೆ.</li>
-                            <li><span className="font-semibold">8 ಸದಸ್ಯರು:</span> ₹4800 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹600), ಇದರಲ್ಲಿ ₹1200 ನವೀಕರಣಗಳಿಗೆ.</li>
+                            <li><span className="font-semibold">8 ಸದಸ್ಯರು:</span> ₹4800 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹600), ಇದರಲ್ಲಿ ₹2000 ನವೀಕರಣಗಳಿಗೆ.</li>
                             <li><span className="font-semibold">16 ಸದಸ್ಯರು:</span> ₹32,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹2000), ಇದರಲ್ಲಿ ₹4000 ನವೀಕರಣಗಳಿಗೆ.</li>
                             <li><span className="font-semibold">32 ಸದಸ್ಯರು:</span> ₹1,28,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹4000), ಇದರಲ್ಲಿ ₹8000 ನವೀಕರಣಗಳಿಗೆ.</li>
                             <li><span className="font-semibold">64 ಸದಸ್ಯರು:</span> ₹5,12,000 (ಪ್ರತಿಯೊಬ್ಬರಿಂದ ₹16,000), ಇದರಲ್ಲಿ ₹16,000 ದಾನವಾಗಿ ಚಾರಿಟಿಗೆ ನೀಡಲಾಗುತ್ತದೆ.</li>
