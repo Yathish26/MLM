@@ -163,7 +163,7 @@ export default function Sheet() {
             </Link>
             <Link to="/admin/paysheet">
               <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-                <img className='w-6 h-6' src="/svg/bill.svg" alt="Epin" />
+                <img className='w-6 h-6' src="/svg/bill.svg" alt="Paysheet" />
               </button>
             </Link>
           </div>
@@ -172,6 +172,11 @@ export default function Sheet() {
             <Link to="/admin/newnetwork">
               <button className='bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600'>
                 <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
+              </button>
+            </Link>
+            <Link to="/admin/usernetwork">
+              <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600'>
+                <img className='w-6 h-6' src="/svg/network.svg" alt="User Network" />
               </button>
             </Link>
             <Link to="/admin/network">

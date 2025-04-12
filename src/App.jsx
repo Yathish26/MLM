@@ -16,6 +16,7 @@ import Epin from './Admin/Epin'
 import Task from './Task'
 import NewGraph from './Admin/NewGraph'
 import Paysheet from './Admin/Paysheet'
+import NetworkByCustomerID from './Admin/Usergraph'
 
 export default function App() {
   return (
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/admin/paysheet" element={<Paysheet />} />
         <Route path="/admin/addusers" element={<Addusers />} />
         <Route path="/admin/network" element={<Graph />} />
+        <Route path="/admin/usernetwork" element={<NetworkByCustomerID />} />
         <Route path="/admin/newnetwork" element={<NewGraph />} />
         <Route path="/admin/epin" element={<Epin />} />
         <Route path="*" element={<Navigate to="/" />} />
