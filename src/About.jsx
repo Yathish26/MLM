@@ -8,8 +8,8 @@ export default function About() {
         { role: "Managing Director", rolekannada: "ವ್ಯವಸ್ಥಾಪಕ MD", name: "Mr Thoufiq", photo: "https://i.ibb.co/4NYK2Mz/Whats-App-Image-2024-12-20-at-9-38-42-PM.jpg", place: "Moodbidri", mobileNumber: "6361782328" },
         { role: "President", rolekannada: "ಅಧ್ಯಕ್ಷರು", name: "Mr Sufi Rajab Ali", photo: "https://i.ibb.co/W51QySq/Whats-App-Image-2024-12-21-at-12-38-32-AM.jpg", place: "Puttur, Bannur", mobileNumber: "9900225372" },
         { role: "Vice President", rolekannada: "ಉಪಾಧ್ಯಕ್ಷರು", name: "Loyeed Dsouza", photo: "https://i.ibb.co/dp9GVJb/Whats-App-Image-2024-12-21-at-12-39-05-AM.jpg", place: "Manjeshwar, Kasaragod, Kerala", mobileNumber: "8590130454" },
-        { role: "Joint Secretary", rolekannada: "ಉಪ ಕಾರ್ಯದರ್ಶಿ", name: "Shahid Moodbidri", photo: "https://i.ibb.co/K0VmCnj/Whats-App-Image-2024-12-21-at-1-48-45-PM.jpg", place: "Moodbidri", mobileNumber: "9606435717" },
-        { role: "Secretary", rolekannada: "ಕಾರ್ಯದರ್ಶಿ", name: "Lalitha Ithal", photo: "https://i.ibb.co/JFZQNZK/Whats-App-Image-2024-12-21-at-12-42-28-AM.jpg", place: "Polali, Kaikamba", mobileNumber: "8123089380" },
+        { role: "Secretary", rolekannada: "ಕಾರ್ಯದರ್ಶಿ", name: "Shahid Moodbidri", photo: "https://i.ibb.co/K0VmCnj/Whats-App-Image-2024-12-21-at-1-48-45-PM.jpg", place: "Moodbidri", mobileNumber: "9606435717" },
+        { role: "Joint Secretary", rolekannada: "ಉಪ ಕಾರ್ಯದರ್ಶಿ", name: "Lalitha Ithal", photo: "https://i.ibb.co/JFZQNZK/Whats-App-Image-2024-12-21-at-12-42-28-AM.jpg", place: "Polali, Kaikamba", mobileNumber: "8123089380" },
 
     ];
 
@@ -123,7 +123,7 @@ export default function About() {
                             <img
                                 src={member.photo}
                                 alt={member.name}
-                                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-4 shadow-md object-cover"
+                                className="w-24 h-24 sm:w-28 sm:h-28 rounded-full mb-4 shadow-md object-contain"
                             />
                             <h2 className="text-lg sm:text-xl font-semibold text-green-800">{member.name}</h2>
                             <div className="flex flex-col justify-center">
