@@ -149,46 +149,49 @@ export default function Sheet() {
 
 
       <div className="w-full max-w-4xl bg-white shadow-md rounded-lg">
-        <div className='flex p-4 w-full justify-between items-center'>
-          <div className='flex gap-2'>
+        <div className="flex flex-col md:flex-row md:justify-between items-center p-4 w-full gap-4">
+          {/* Left Buttons Group */}
+          <div className="flex flex-wrap justify-center md:justify-start gap-2 w-full md:w-auto">
             <Link to="/admin/addusers">
-              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-                <img className='w-6 h-6' src="/svg/add.svg" alt="Add" />
+              <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                <img className="w-6 h-6" src="/svg/add.svg" alt="Add" />
               </button>
             </Link>
             <Link to="/admin/epin">
-              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-                <img className='w-6 h-6' src="/svg/pin.svg" alt="Epin" />
+              <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                <img className="w-6 h-6" src="/svg/pin.svg" alt="Epin" />
               </button>
             </Link>
             <Link to="/admin/paysheet">
-              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-                <img className='w-6 h-6' src="/svg/bill.svg" alt="Paysheet" />
+              <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                <img className="w-6 h-6" src="/svg/bill.svg" alt="Paysheet" />
               </button>
             </Link>
           </div>
 
-          <div className='flex gap-2'>
+          {/* Right Buttons Group */}
+          <div className="flex flex-wrap justify-center md:justify-end gap-2 w-full md:w-auto">
             <Link to="/admin/newnetwork">
-              <button className='bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600'>
-                <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
+              <button className="bg-yellow-500 text-white p-2 rounded hover:bg-yellow-600">
+                <img className="w-6 h-6" src="/svg/network.svg" alt="Network" />
               </button>
             </Link>
             <Link to="/admin/usernetwork">
-              <button className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600'>
-                <img className='w-6 h-6' src="/svg/network.svg" alt="User Network" />
+              <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+                <img className="w-6 h-6" src="/svg/network.svg" alt="User Network" />
               </button>
             </Link>
             <Link to="/admin/network">
-              <button className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-                <img className='w-6 h-6' src="/svg/network.svg" alt="Network" />
+              <button className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+                <img className="w-6 h-6" src="/svg/network.svg" alt="Network" />
               </button>
             </Link>
-            <button onClick={handleLogout} className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600'>
-              <img className='w-6 h-6' src="/svg/logout.svg" alt="Logout" />
+            <button onClick={handleLogout} className="bg-green-500 text-white p-2 rounded hover:bg-green-600">
+              <img className="w-6 h-6" src="/svg/logout.svg" alt="Logout" />
             </button>
           </div>
         </div>
+
         <div className="w-full">
           <div className=" w-fit bg-white border m-8 border-gray-300 rounded-lg shadow-md p-6">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Total Users</h2>
@@ -226,7 +229,7 @@ export default function Sheet() {
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
               {filteredUsers.map((user, index) => (
-                
+
                 <tr
                   key={index}
                   className={`border-b border-gray-200 hover:bg-gray-100 ${index % 2 === 0 ? "bg-gray-50" : ""
