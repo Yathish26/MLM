@@ -16,7 +16,7 @@ export default function Task() {
     const [paid4, setPaid4] = useState(false);
     const [paid5, setPaid5] = useState(false);
     const [paid6, setPaid6] = useState(false);
-
+    const [error, setError] = useState(false);
     const [paidStatus, setPaidStatus] = useState('Pending');
     const [paidStatus2, setPaidStatus2] = useState('Pending');
     const [paidStatus3, setPaidStatus3] = useState('Pending');
@@ -45,6 +45,7 @@ export default function Task() {
                 setCID(response.data.profile?.customerID || null);
             } catch (error) {
                 console.error("Error fetching customer details:", error);
+                setError(true);
             }
         };
 
@@ -66,6 +67,10 @@ export default function Task() {
 
         fetchTasks();
     }, [cID]);
+
+    if (error) {
+        navigate("/login");
+    }
 
     // Fetch Child References
     useEffect(() => {

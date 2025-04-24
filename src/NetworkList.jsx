@@ -5,7 +5,6 @@ import axios from 'axios';
 import Header from './Header';
 
 export default function FamilyNetwork() {
-  const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [ssid, setSSID] = useState('');
   const [error, setError] = useState('');
@@ -63,6 +62,10 @@ export default function FamilyNetwork() {
 
     fetchUserData();
   }, [navigate]);
+
+  if (error) {
+    navigate('/login');
+  }
 
 
   const toggleLevel = (level) => {
