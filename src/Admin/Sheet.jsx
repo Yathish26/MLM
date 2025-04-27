@@ -224,6 +224,7 @@ export default function Sheet() {
                 {control && <th className="py-3 px-6 text-left">Child 1</th>}
                 {control && <th className="py-3 px-6 text-left">Child 2</th>}
                 {control && <th className="py-3 px-6 text-left">Password</th>}
+                {control && <th className="py-3 px-6 text-left">Joined</th>}
                 {control && <th className="py-3 px-6 text-left">Actions</th>}
               </tr>
             </thead>
@@ -339,6 +340,11 @@ export default function Sheet() {
                       ) : (
                         user.password
                       )}
+                    </td>
+                  )}
+                  {control && (
+                    <td className="py-3 px-6 text-left">
+                      {user.joinedDate || "N/A"}
                     </td>
                   )}
                   {control && (
