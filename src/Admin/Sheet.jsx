@@ -372,12 +372,12 @@ export default function Sheet() {
                           >
                             Edit
                           </button>
-                          <button
+                          {/* <button
                             onClick={() => handleDelete(user.customerID)}
                             className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
                           >
                             Delete
-                          </button>
+                          </button> */}
                         </>
                       )}
                     </td>
