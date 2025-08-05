@@ -221,11 +221,11 @@ export default function Sheet() {
                 <th className="py-3 px-6 text-left">Reference Customer</th>
                 <th className="py-3 px-6 text-left">Place</th>
                 <th className="py-3 px-6 text-left">Mobile Number</th>
-                {control && <th className="py-3 px-6 text-left">Child 1</th>}
-                {control && <th className="py-3 px-6 text-left">Child 2</th>}
-                {control && <th className="py-3 px-6 text-left">Password</th>}
-                {control && <th className="py-3 px-6 text-left">Joined</th>}
-                {control && <th className="py-3 px-6 text-left">Actions</th>}
+                <th className="py-3 px-6 text-left">Child 1</th>
+                <th className="py-3 px-6 text-left">Child 2</th>
+                <th className="py-3 px-6 text-left">Password</th>
+                <th className="py-3 px-6 text-left">Joined</th>
+                <th className="py-3 px-6 text-left">Actions</th>
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
@@ -251,7 +251,7 @@ export default function Sheet() {
                   </td>
                   <td className="py-3 px-6 text-left">{user.customerID}</td>
                   <td className="py-3 px-6 text-left">
-                    {editRow === user.customerID ? (
+                    {editRow === user.customerID && control ? (
                       <input
                         type="text"
                         value={editedData.referenceId}
@@ -300,7 +300,6 @@ export default function Sheet() {
                       user.mobile
                     )}
                   </td>
-                  {control && (
                     <td className="py-3 px-6 text-left">
                       {editRow === user.customerID ? (
                         <input
@@ -313,8 +312,6 @@ export default function Sheet() {
                         user.child1 ? user.child1 : "N/A"
                       )}
                     </td>
-                  )}
-                  {control && (
                     <td className="py-3 px-6 text-left">
                       {editRow === user.customerID ? (
                         <input
@@ -327,61 +324,55 @@ export default function Sheet() {
                         user.child2 ? user.child2 : "N/A"
                       )}
                     </td>
-                  )}
-                  {control && (
-                    <td className="py-3 px-6 text-left">
-                      {editRow === user.customerID ? (
-                        <input
-                          type="text"
-                          value={editedData.password}
-                          onChange={(e) => setEditedData({ ...editedData, password: e.target.value })}
-                          className="border p-2 rounded w-full"
-                        />
-                      ) : (
-                        user.password
-                      )}
-                    </td>
-                  )}
-                  {control && (
-                    <td className="py-3 px-6 text-left">
-                      {user.joinedDate || "N/A"}
-                    </td>
-                  )}
-                  {control && (
-                    <td className="py-3 px-6 text-left flex gap-2">
-                      {editRow === user.customerID ? (
-                        <>
+                  <td className="py-3 px-6 text-left">
+                    {editRow === user.customerID ? (
+                      <input
+                        type="text"
+                        value={editedData.password}
+                        onChange={(e) => setEditedData({ ...editedData, password: e.target.value })}
+                        className="border p-2 rounded w-full"
+                      />
+                    ) : (
+                      user.password
+                    )}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    {user.joinedDate || "N/A"}
+                  </td>
+                  <td className="py-3 px-6 text-left flex gap-2">
+                    {editRow === user.customerID ? (
+                      <>
+                        <button
+                          onClick={handleSave}
+                          className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
+                        >
+                          Save
+                        </button>
+                        <button
+                          onClick={() => setEditRow(null)}
+                          className="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          onClick={() => handleEdit(user)}
+                          className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                        >
+                          Edit
+                        </button>
+                        {control &&
                           <button
-                            onClick={handleSave}
-                            className="bg-green-500 text-white py-1 px-3 rounded hover:bg-green-600"
-                          >
-                            Save
-                          </button>
-                          <button
-                            onClick={() => setEditRow(null)}
-                            className="bg-gray-500 text-white py-1 px-3 rounded hover:bg-gray-600"
-                          >
-                            Cancel
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <button
-                            onClick={() => handleEdit(user)}
-                            className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
-                          >
-                            Edit
-                          </button>
-                          {/* <button
                             onClick={() => handleDelete(user.customerID)}
                             className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
                           >
                             Delete
-                          </button> */}
-                        </>
-                      )}
-                    </td>
-                  )}
+                          </button>}
+                      </>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
