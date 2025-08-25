@@ -107,7 +107,7 @@ export default function About() {
                 <div className="my-8">
                     <h2 className="text-lg sm:text-xl font-bold text-green-700 mb-4">Legal Documents</h2>
                     <div className="flex flex-wrap justify-center items-center gap-4">
-                        <img className="object-contain w-40 h-40 sm:w-60 sm:h-60 rounded-lg shadow-md" src="https://i.ibb.co/W30j8dt/6318807778126317346.jpg" alt="Pan Card" />
+                        <img className="object-contain w-40 h-40 sm:w-60 sm:h-60 rounded-lg shadow-md" src="https://static-assets-1.truthsocial.com/tmtg:prime-ts-assets/media_attachments/files/115/089/020/051/699/463/original/7d6b67f6832c6d68.jpeg" alt="Pan Card" />
                         <img className="object-contain w-40 h-40 sm:w-60 sm:h-60 rounded-lg shadow-md" src="https://i.ibb.co/6Dmz1yb/6318807778126317347.jpg" alt="Document Sheet" />
                         <img className="object-contain w-40 h-40 sm:w-60 sm:h-60 rounded-lg shadow-md" src="https://i.ibb.co/87TnXgq/6102581128532706792.jpg" alt="Document Sheet" />
                     </div>
